@@ -13,6 +13,6 @@ steps:
     - 'setmeta'
     - '-r'
     - '-h'
-    - 'cache-control: max-age=86400'
+    - 'cache-control: max-age=86400,public'
     - 'gs://${_GCS_BUCKET}/*'
 

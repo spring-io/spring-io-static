@@ -15,3 +15,5 @@ spring-io-static/
 │   └── author
 │       └── date
 ```
+
+Then the resources will be served from `https://static.spring.io/blog/<author>/<date>/`.

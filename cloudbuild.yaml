@@ -10,6 +10,22 @@ steps:
 - name: gcr.io/cloud-builders/gsutil
   args:
     - '-m'
+    - 'rsync'
+    - '-d'
+    - '-r'
+    - 'drupal'
+    - 'gs://${_GCS_BUCKET}/drupal'
+- name: gcr.io/cloud-builders/gsutil
+  args:
+    - '-m'
+    - 'rsync'
+    - '-d'
+    - '-r'
+    - 'wp'
+    - 'gs://${_GCS_BUCKET}/wp'
+- name: gcr.io/cloud-builders/gsutil
+  args:
+    - '-m'
     - 'setmeta'
     - '-r'
     - '-h'

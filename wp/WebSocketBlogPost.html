@@ -1,0 +1,2144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Spring Framework 4.0 M2: WebSocket Messaging Architectures | SpringSource Team Blog</title>
+<!--	<meta name="generator" content="WordPress 3.1.1" />  leave this for stats -->
+
+	<link rel="stylesheet" href="WebSocketBlogPost_files/style.css" type="text/css" media="all">
+	<link rel="stylesheet" href="WebSocketBlogPost_files/skin.css" type="text/css" media="all">
+	<link rel="stylesheet" href="WebSocketBlogPost_files/options.css" type="text/css" media="all">
+
+	  <link rel="stylesheet" href="WebSocketBlogPost_files/print.css" type="text/css" media="print">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://blog.springsource.org/feed/">
+	<link rel="alternate" type="text/xml" title="RSS .92" href="http://blog.springsource.org/feed/rss/">
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://blog.springsource.org/feed/atom/">
+	<link rel="pingback" href="http://blog.springsource.org/xmlrpc.php">
+	<link rel="icon" href="http://wp.spring.io/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="http://wp.spring.io/favicon.ico" type="image/x-icon">
+			<link rel="archives" title="August 2013" href="http://blog.springsource.org/2013/08/">
+	<link rel="archives" title="July 2013" href="http://blog.springsource.org/2013/07/">
+	<link rel="archives" title="June 2013" href="http://blog.springsource.org/2013/06/">
+	<link rel="archives" title="May 2013" href="http://blog.springsource.org/2013/05/">
+	<link rel="archives" title="April 2013" href="http://blog.springsource.org/2013/04/">
+	<link rel="archives" title="March 2013" href="http://blog.springsource.org/2013/03/">
+	<link rel="archives" title="February 2013" href="http://blog.springsource.org/2013/02/">
+	<link rel="archives" title="January 2013" href="http://blog.springsource.org/2013/01/">
+	<link rel="archives" title="December 2012" href="http://blog.springsource.org/2012/12/">
+	<link rel="archives" title="November 2012" href="http://blog.springsource.org/2012/11/">
+	<link rel="archives" title="October 2012" href="http://blog.springsource.org/2012/10/">
+	<link rel="archives" title="September 2012" href="http://blog.springsource.org/2012/09/">
+	<link rel="archives" title="August 2012" href="http://blog.springsource.org/2012/08/">
+	<link rel="archives" title="July 2012" href="http://blog.springsource.org/2012/07/">
+	<link rel="archives" title="June 2012" href="http://blog.springsource.org/2012/06/">
+	<link rel="archives" title="May 2012" href="http://blog.springsource.org/2012/05/">
+	<link rel="archives" title="April 2012" href="http://blog.springsource.org/2012/04/">
+	<link rel="archives" title="March 2012" href="http://blog.springsource.org/2012/03/">
+	<link rel="archives" title="February 2012" href="http://blog.springsource.org/2012/02/">
+	<link rel="archives" title="January 2012" href="http://blog.springsource.org/2012/01/">
+	<link rel="archives" title="December 2011" href="http://blog.springsource.org/2011/12/">
+	<link rel="archives" title="November 2011" href="http://blog.springsource.org/2011/11/">
+	<link rel="archives" title="October 2011" href="http://blog.springsource.org/2011/10/">
+	<link rel="archives" title="September 2011" href="http://blog.springsource.org/2011/09/">
+	<link rel="archives" title="August 2011" href="http://blog.springsource.org/2011/08/">
+	<link rel="archives" title="July 2011" href="http://blog.springsource.org/2011/07/">
+	<link rel="archives" title="June 2011" href="http://blog.springsource.org/2011/06/">
+	<link rel="archives" title="May 2011" href="http://blog.springsource.org/2011/05/">
+	<link rel="archives" title="April 2011" href="http://blog.springsource.org/2011/04/">
+	<link rel="archives" title="March 2011" href="http://blog.springsource.org/2011/03/">
+	<link rel="archives" title="February 2011" href="http://blog.springsource.org/2011/02/">
+	<link rel="archives" title="January 2011" href="http://blog.springsource.org/2011/01/">
+	<link rel="archives" title="December 2010" href="http://blog.springsource.org/2010/12/">
+	<link rel="archives" title="November 2010" href="http://blog.springsource.org/2010/11/">
+	<link rel="archives" title="October 2010" href="http://blog.springsource.org/2010/10/">
+	<link rel="archives" title="September 2010" href="http://blog.springsource.org/2010/09/">
+	<link rel="archives" title="August 2010" href="http://blog.springsource.org/2010/08/">
+	<link rel="archives" title="July 2010" href="http://blog.springsource.org/2010/07/">
+	<link rel="archives" title="June 2010" href="http://blog.springsource.org/2010/06/">
+	<link rel="archives" title="May 2010" href="http://blog.springsource.org/2010/05/">
+	<link rel="archives" title="April 2010" href="http://blog.springsource.org/2010/04/">
+	<link rel="archives" title="March 2010" href="http://blog.springsource.org/2010/03/">
+	<link rel="archives" title="February 2010" href="http://blog.springsource.org/2010/02/">
+	<link rel="archives" title="January 2010" href="http://blog.springsource.org/2010/01/">
+	<link rel="archives" title="December 2009" href="http://blog.springsource.org/2009/12/">
+	<link rel="archives" title="November 2009" href="http://blog.springsource.org/2009/11/">
+	<link rel="archives" title="October 2009" href="http://blog.springsource.org/2009/10/">
+	<link rel="archives" title="September 2009" href="http://blog.springsource.org/2009/09/">
+	<link rel="archives" title="August 2009" href="http://blog.springsource.org/2009/08/">
+	<link rel="archives" title="July 2009" href="http://blog.springsource.org/2009/07/">
+	<link rel="archives" title="June 2009" href="http://blog.springsource.org/2009/06/">
+	<link rel="archives" title="May 2009" href="http://blog.springsource.org/2009/05/">
+	<link rel="archives" title="April 2009" href="http://blog.springsource.org/2009/04/">
+	<link rel="archives" title="March 2009" href="http://blog.springsource.org/2009/03/">
+	<link rel="archives" title="February 2009" href="http://blog.springsource.org/2009/02/">
+	<link rel="archives" title="January 2009" href="http://blog.springsource.org/2009/01/">
+	<link rel="archives" title="December 2008" href="http://blog.springsource.org/2008/12/">
+	<link rel="archives" title="November 2008" href="http://blog.springsource.org/2008/11/">
+	<link rel="archives" title="October 2008" href="http://blog.springsource.org/2008/10/">
+	<link rel="archives" title="September 2008" href="http://blog.springsource.org/2008/09/">
+	<link rel="archives" title="August 2008" href="http://blog.springsource.org/2008/08/">
+	<link rel="archives" title="July 2008" href="http://blog.springsource.org/2008/07/">
+	<link rel="archives" title="June 2008" href="http://blog.springsource.org/2008/06/">
+	<link rel="archives" title="May 2008" href="http://blog.springsource.org/2008/05/">
+	<link rel="archives" title="April 2008" href="http://blog.springsource.org/2008/04/">
+	<link rel="archives" title="March 2008" href="http://blog.springsource.org/2008/03/">
+	<link rel="archives" title="February 2008" href="http://blog.springsource.org/2008/02/">
+	<link rel="archives" title="January 2008" href="http://blog.springsource.org/2008/01/">
+	<link rel="archives" title="December 2007" href="http://blog.springsource.org/2007/12/">
+	<link rel="archives" title="November 2007" href="http://blog.springsource.org/2007/11/">
+	<link rel="archives" title="October 2007" href="http://blog.springsource.org/2007/10/">
+	<link rel="archives" title="September 2007" href="http://blog.springsource.org/2007/09/">
+	<link rel="archives" title="August 2007" href="http://blog.springsource.org/2007/08/">
+	<link rel="archives" title="July 2007" href="http://blog.springsource.org/2007/07/">
+	<link rel="archives" title="June 2007" href="http://blog.springsource.org/2007/06/">
+	<link rel="archives" title="May 2007" href="http://blog.springsource.org/2007/05/">
+	<link rel="archives" title="April 2007" href="http://blog.springsource.org/2007/04/">
+	<link rel="archives" title="March 2007" href="http://blog.springsource.org/2007/03/">
+	<link rel="archives" title="February 2007" href="http://blog.springsource.org/2007/02/">
+	<link rel="archives" title="January 2007" href="http://blog.springsource.org/2007/01/">
+	<link rel="archives" title="December 2006" href="http://blog.springsource.org/2006/12/">
+	<link rel="archives" title="November 2006" href="http://blog.springsource.org/2006/11/">
+	<link rel="archives" title="October 2006" href="http://blog.springsource.org/2006/10/">
+	<link rel="archives" title="September 2006" href="http://blog.springsource.org/2006/09/">
+	<link rel="archives" title="August 2006" href="http://blog.springsource.org/2006/08/">
+	<link rel="archives" title="July 2006" href="http://blog.springsource.org/2006/07/">
+	<link rel="archives" title="May 2006" href="http://blog.springsource.org/2006/05/">
+	<link rel="archives" title="April 2006" href="http://blog.springsource.org/2006/04/">
+	<link rel="archives" title="March 2006" href="http://blog.springsource.org/2006/03/">
+	<link rel="archives" title="February 2006" href="http://blog.springsource.org/2006/02/">
+	<link rel="archives" title="August 2004" href="http://blog.springsource.org/2004/08/">
+	  <script src="WebSocketBlogPost_files/pingpop.js" type="text/javascript">
+  </script>
+        <script type="text/javascript" src="WebSocketBlogPost_files/prototype_002.html"></script>
+        <script type="text/javascript" src="WebSocketBlogPost_files/effects.js"></script>
+        <script type="text/javascript" src="WebSocketBlogPost_files/ajax_comments.js"></script>
+  	<link rel="alternate" type="application/rss+xml" title="SpringSource Team Blog » Spring Framework 4.0 M2: WebSocket Messaging Architectures Comments Feed" href="http://blog.springsource.org/2013/07/24/spring-framework-4-0-m2-websocket-messaging-architectures/feed/">
+<link rel="stylesheet" id="sociable-front-css-css" href="WebSocketBlogPost_files/sociable.css" type="text/css" media="all">
+<script type="text/javascript" src="WebSocketBlogPost_files/l10n.html"></script>
+<script type="text/javascript" src="WebSocketBlogPost_files/prototype.html"></script>
+<script type="text/javascript" src="WebSocketBlogPost_files/wp-scriptaculous.html"></script>
+<script type="text/javascript" src="WebSocketBlogPost_files/effects.html"></script>
+<script type="text/javascript" src="WebSocketBlogPost_files/lightbox.js"></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.springsource.org/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.springsource.org/wp-includes/wlwmanifest.xml"> 
+<link rel="index" title="SpringSource Team Blog" href="http://blog.springsource.org/">
+<link rel="start" title="Method Injection" href="http://blog.springsource.org/2004/08/06/method-injection/">
+<link rel="prev" title="Reactor 1.0.0.M1 – a foundation for asynchronous fast-data applications on the JVM" href="http://blog.springsource.org/2013/07/18/reactor-1-0-0-m1-a-foundation-for-asynchronous-fast-data-applications-on-the-jvm/">
+<link rel="next" title="Spring Boot – Simplifying Spring for Everyone" href="http://blog.springsource.org/2013/08/06/spring-boot-simplifying-spring-for-everyone/">
+<meta name="generator" content="WordPress 3.1.1">
+<link rel="shortlink" href="http://wp.me/p1fTCJ-3DA">
+
+<!-- All in One SEO Pack 1.6.12.1 by Michael Torbert of Semper Fi Web Design[279,378] -->
+<meta name="description" content="Overview As I wrote previously, a WebSocket API is only the starting point for WebSocket-style messaging applications. Many practical challenges remain. As">
+<link rel="canonical" href="http://blog.springsource.org/2013/07/24/spring-framework-4-0-m2-websocket-messaging-architectures/">
+<!-- /all in one seo pack -->
+
+	<!-- begin lightbox scripts -->
+	<script type="text/javascript">
+    //<![CDATA[
+    document.write('<link rel="stylesheet" href="http://blog.springsource.org/wp-content/plugins/lightbox-2/Themes/Black/lightbox.css" type="text/css" media="screen" />');
+    //]]>
+    </script><link rel="stylesheet" href="WebSocketBlogPost_files/lightbox.css" type="text/css" media="screen">
+	<!-- end lightbox scripts -->
+<!-- Begin Google Analytics code -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="WebSocketBlogPost_files/ga.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-2728886-3");
+pageTracker._setDomainName("none");
+pageTracker._setAllowLinker(true);
+pageTracker._trackPageview();
+</script>
+
+<!-- End Google Analytics code --><link href="WebSocketBlogPost_files/shCore.css" type="text/css" rel="stylesheet"><link href="WebSocketBlogPost_files/shThemeDefault.css" type="text/css" rel="stylesheet"><meta id="syntaxhighlighteranchor" name="syntaxhighlighter-version" content="3.1.3">
+
+        <script type="text/javascript" src="WebSocketBlogPost_files/elqCfg.js"></script>
+        <script type="text/javascript" src="WebSocketBlogPost_files/elqImg.js"></script>
+        <script type="text/javascript" src="WebSocketBlogPost_files/navigation.js"></script>
+
+<script src="WebSocketBlogPost_files/munchkin.js" async="" type="text/javascript"></script></head>
+<body>
+<!-- start custom spring header -->
+
+
+<!--[if (IE 6)|(IE 7)|(IE 8)]>
+<div style="height:97px;margin-top:0px;background: #457228;">
+<![endif]-->
+
+<div style="height:97px;margin-top:0px; background: url('http://https://s3.amazonaws.com/assets.spring.io/drupal/sites/all/themes/s2org11/images/BG_SiteHeader_Glow.png') no-repeat scroll center top, url('https://s3.amazonaws.com/assets.spring.io/drupal/files/homepage/BG_SiteBillboardAndHeader_50.png') repeat-x scroll 0 0 #367B09;">
+
+<div style="margin-left:auto;margin-right:auto;width:980px;">
+  		<div style="height:80px;margin-top:0px;background: url('https://s3.amazonaws.com/assets.spring.io/drupal/files/homepage/BG_SiteTopNav_new.png') repeat-x scroll 0 0 #F1F1F1;
+  	-moz-border-radius: 0 0 5px 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-radius: 0 0 5px 5px;
+-moz-box-shadow: 0 0 15px #333;
+-webkit-box-shadow: 0 0 15px#333;
+box-shadow: 0 0 15px #333;">
+<div style="margin-left:10px;margin-right:10px;">
+ 	          <table valign="top" style="font-size:14px;text-transform:uppercase;color:#666;margin:0;" height="80">
+	          <tbody><tr>
+
+	          <td style="width:200px;text-align:center;padding-bottom:5px;">
+	           <a href="http://www.springsource.org/" onclick="javascript:urchinTracker('/outbound/www.springsource.org');"><img src="WebSocketBlogPost_files/logo-spring-103x60.png"></a>
+             <a href="http://www.gopivotal.com/" target="_blank" style="margin-left: 7px;">
+               <img src="WebSocketBlogPost_files/logo-pivotal-57x12.png" style="padding-bottom: 4px;">
+             </a>
+	           </td>
+	           <td width="7">&nbsp;</td>
+	           <td valign="top">
+	           <div style="margin-top:-1px;">
+	           <img style="margin-top:-2px" src="WebSocketBlogPost_files/nav_sep_line_new.png">
+	           </div>
+	           </td>
+             <td style="height: 65px; background: url(&quot;https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_features_65.jpg&quot;) no-repeat scroll center top transparent; text-decoration: none;" onmouseover="this.style.background = 'url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_features_65_hover.jpg) no-repeat top center';this.style.textDecoration = 'none'" onmouseout="this.style.background = 'url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_features_65.jpg) no-repeat top center';this.style.textDecoration = 'none'" align="center">
+		  		     <div style="margin-top:-1px;">
+		  		     <a style="display:block;width:134px;height: 65px;" href="http://www.springsource.org/features" onclick="javascript:urchinTracker('/outbound/www.springsource.org');"></a>
+		  		     <br>
+		  		     </div>
+		  		   </td>
+	           <td valign="top">
+	           <div style="margin-top:-1px;">
+	           <img style="margin-top:-2px" src="WebSocketBlogPost_files/nav_sep_line_new.png">
+	           </div>
+	           </td>
+             <td style="background:url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_getstarted_65.jpg) no-repeat top center; text-decoration: none;" onmouseover="this.style.background = 'url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_getstarted_65_hover.jpg) no-repeat top center';this.style.textDecoration = 'none'" onmouseout="this.style.background = 'url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_getstarted_65.jpg) no-repeat top center';this.style.textDecoration = 'none'" align="center">
+  	          <div style="margin-top:-1px;">
+  	           <a style="display:block;width:134px;height: 65px;" href="http://www.springsource.org/get-started" onclick="javascript:urchinTracker('/outbound/www.springsource.org');"></a>
+  		         <br>
+              </div>
+             </td>
+	           <td valign="top">
+	           <div style="margin-top:-1px;">
+	           <img style="margin-top:-2px" src="WebSocketBlogPost_files/nav_sep_line_new.png">
+	           </div>
+	           </td>
+
+	           
+             <td style="background:url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_getinvolved_65.jpg) no-repeat top center; text-decoration: none;" onmouseover="this.style.background = 'url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_getinvolved_65_hover.jpg) no-repeat top center';this.style.textDecoration = 'none'" onmouseout="this.style.background = 'url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_getinvolved_65.jpg) no-repeat top center';this.style.textDecoration = 'none'" align="center">
+  		         <div style="margin-top:-1px;">
+  		      		<a style="display:block;width:134px;height: 65px;" href="http://www.springsource.org/get-involved" onclick="javascript:urchinTracker('/outbound/www.springsource.org');"></a>
+  		      		<br>
+	             </div>
+	           </td>
+	           <td valign="top">
+	           <div style="margin-top:-1px;">
+	           <img style="margin-top:-2px" src="WebSocketBlogPost_files/nav_sep_line_new.png">
+	           </div>
+	           </td>
+
+             <td style="background:url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_newsevents_65.jpg) no-repeat; text-decoration: none;" onmouseover="this.style.background = 'url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_newsevents_65_hover.jpg) no-repeat';this.style.textDecoration = 'none'" onmouseout="this.style.background = 'url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_newsevents_65.jpg) no-repeat';this.style.textDecoration = 'none'" align="center">
+	           	<div style="margin-top:-1px;">
+                 <a style="display:block;width:134px;height: 65px;" href="http://www.springsource.org/news-events" onclick="javascript:urchinTracker('/outbound/www.springsource.org');"></a>
+                 <br>
+	           	</div>
+	           </td>
+	           <td valign="top">
+	           <div style="margin-top:-1px;">
+	           <img style="margin-top:-2px" src="WebSocketBlogPost_files/nav_sep_line_new.png">
+	           </div>
+	           </td>
+	           <td align="left">
+        <!--[if lt IE 9]>
+           <div style="height:15px"></div>
+        <![endif]-->
+     <div id="search-box">
+          <form action="http://www.springsource.org/search/google" method="get" id="search-theme-form">
+            <div><div id="search" class="container-inline">
+
+              <input maxlength="128" size="16" name="query" value="Search" style="border: 1px solid rgb(204, 204, 204);width:190px;margin-left: 2px;color:#999999" class="form-text" onblur="this.value = this.value || 'Search'; this.style.color = '#999999';" onfocus="if(this.value=='Search') {this.value='';} this.style.color = '#999999';" type="text">
+
+              <input name="output" value="xml_no_dtd" type="hidden">
+              <input name="client" value="google-csbe" type="hidden">
+              <input name="cx" value="009687201310241541466:zerjfa_shxo" type="hidden">
+              <input name="ie" value="utf-8" type="hidden">
+              <input name="oe" value="utf-8" type="hidden">
+              <input name="op" value="Search" type="hidden">
+            </div></div>
+          </form>
+     </div>
+     <div id="subscribe" style="color: #7E7E7E;float: left;padding-left: 50px;text-shadow: 0 1px 0 white;margin-top: 4px;">
+        <a href="http://www.springsource.org/newsletter-subscription" style="color: rgb(126, 126, 126); background-image: url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_subscription_off.gif); text-decoration: none; background-position: 0px 2px; background-repeat: no-repeat; " onmouseover="this.style.background = 'url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_subscription_on.gif) 0 2px no-repeat';this.style.textDecoration = 'none'" onmouseout="this.style.background = 'url(https://s3.amazonaws.com/assets.spring.io/drupal/files/header/nav_subscription_off.gif) 0 2px no-repeat';this.style.textDecoration = 'none'" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">
+           <span style="padding-left:20px;font-size:12px;">Subscribe</span>
+        </a>
+     </div>
+		      </td>
+		      <!--<td width="50">&nbsp;</td>-->
+		      </tr>
+	      </tbody></table>
+</div>
+
+
+ </div></div></div>
+<!--[if (IE 6)|(IE 7)|(IE 8)]>
+</div><![endif]-->
+
+
+
+<!-- end custom spring header -->
+
+
+
+
+
+
+
+<div id="page">
+
+<div style="margin-left:10px;margin-right:10px;">
+
+<p style="line-height:27px;">&nbsp;</p>
+
+<p style="font-size:14px;margin-bottom:5px;"><a href="http://blog.springsource.com/" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Blogs</a></p>
+<!--<table width="100%"><tr><td width="98.5%"> -->
+
+<span style="text-transform:uppercase;font-size:30px;color:#666;font-weight:500;font-family:Arial, sans serif;">SpringSource Blog</span>
+<!--</td>
+<td align="right">
+<a href="http://feeds.feedburner.com/SpringSourceTeamBlog" target="_blank"><img src="http://blog.springsource.com/wp-content/themes/spring11/feed.png" width="16" height="16" alt="feed"/></a>
+<!--<a href="http://blog.springsource.com/comments/feed/" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');"><img src="http://blog.springsource.com/wp-content/themes/spring11/feed.png" width="16" height="16" alt="feed"/>&nbsp;&nbsp;Comments</a>-->
+<!--</td>
+</tr>
+</table>-->
+
+
+
+<div class="sidebar" id="rightbar">
+	<ul>
+<li id="text-3" class="widget widget_text"><h2 class="widgettitle">Authors</h2>
+			<div class="textwidget"><div class="textwidget"><style type="text/css">
+.left {width:140px;float:left;margin-left:-10px;}
+.right {padding-left:150px;}
+</style>
+
+<div class="left">
+<a href="http://blog.springsource.org/author/afitzgerald/">Adam FitzGerald</a><br>
+<a href="http://blog.springsource.org/author/stewarta/">Alan Stewart</a><br>
+<a href="http://blog.springsource.org/author/aeisenberg/">Andrew Eisenberg</a><br>
+
+<a href="http://blog.springsource.org/author/awilkinson/">Andy Wilkinson</a><br>
+
+
+<a href="http://blog.springsource.org/author/bena/">Ben Alex</a><br>
+<a href="http://blog.springsource.org/author/benh/">Ben Hale</a><br>
+<a href="http://blog.springsource.org/author/cfrost/">Chris Frost</a><br>
+<a href="http://blog.springsource.org/author/cdupuis/">Christian Dupuis</a><br>
+<a href="http://blog.springsource.org/author/cwalls/">Craig Walls</a><br>
+
+<a href="http://blog.springsource.org/author/dturanski/">David Turanski</a><br>
+
+<a href="http://blog.springsource.org/author/gnormington/">Glyn Normington</a><br>
+
+<a href="http://blog.springsource.org/author/glaforge/">Guillaume Laforge</a><br>
+<a href="http://blog.springsource.org/author/hedelson/">Helena Edelson</a><br>
+<a href="http://blog.springsource.org/author/jhickey/">Jennifer Hickey</a><br>
+<a href="http://blog.springsource.org/author/jhann/">John Hann</a><br>
+<a href="http://blog.springsource.org/author/jtravis/">Jon Travis</a><br>
+<a href="http://blog.springsource.org/author/juergenh/">Juergen Hoeller</a><br>
+<a href="http://blog.springsource.org/author/kdvolder/">Kris De Volder</a><br>
+<a href="http://blog.springsource.org/author/markf/">Mark Fisher</a><br>
+<a href="http://blog.springsource.org/author/mthomas/">Mark Thomas</a><br>
+<a href="http://blog.springsource.org/author/misvy/">Michael Isvy</a><br>
+<a href="http://blog.springsource.org/author/ozhurakousky/">Oleg Zhurakousky</a><br>
+<a href="http://blog.springsource.org/author/chapmanp/">Paul Chapman</a><br>
+<a href="http://blog.springsource.org/author/peter-ledbrook/">Peter Ledbrook</a><br>
+<a href="http://blog.springsource.org/author/robh/">Rob Harrop</a><br>
+
+<a href="http://blog.springsource.org/author/rodj/">Rod Johnson</a><br>
+<a href="http://blog.springsource.org/author/rclarkson/">Roy Clarkson</a><br>
+
+<a href="http://blog.springsource.org/author/sschmidt/">Stefan Schmidt</a><br>
+
+
+</div>
+
+<div class="right">
+<a href="http://blog.springsource.org/author/adrianc/">Adrian Colyer</a><br>
+<a href="http://blog.springsource.org/author/arichardson/">Alexis Richardson</a><br>
+<a href="http://blog.springsource.org/author/aclement/">Andy Clement</a><br>
+
+<a href="http://blog.springsource.org/author/arjenp/">Arjen Poutsma</a><br>
+<a href="http://blog.springsource.org/author/bcorrie/">Ben Corrie</a><br>
+<a href="http://blog.springsource.org/author/cbeams/">Chris Beams</a><br>
+<a href="http://blog.springsource.org/author/crichardson/">Chris Richardson</a><br>
+<a href="http://blog.springsource.org/author/costinl/">Costin Leau</a><br>
+
+<a href="http://blog.springsource.org/author/dsyer/">Dave Syer</a><br>
+<a href="http://blog.springsource.org/author/grussell/">Gary Russell</a><br>
+<a href="http://blog.springsource.org/author/grocher/">Graeme Rocher</a><br>
+<a href="http://blog.springsource.org/author/ghillert/">Gunnar Hillert</a><br>
+<a href="http://blog.springsource.org/author/jtyrrell/">James Tyrrell</a><br>
+<a href="http://blog.springsource.org/author/jgrelle/">Jeremy Grelle</a><br>
+<a href="http://blog.springsource.org/author/jbrisbin/">Jon Brisbin</a><br>
+<a href="http://blog.springsource.org/author/jolong/">Josh Long</a><br>
+<a href="http://blog.springsource.org/author/keithd/">Keith Donald</a><br>
+<a href="http://blog.springsource.org/author/ltaylor/">Luke Taylor</a><br>
+<a href="http://blog.springsource.org/author/mpollack/">Mark Pollack</a><br>
+<a href="http://blog.springsource.org/author/mlippert/">Martin Lippert</a><br>
+<a href="http://blog.springsource.org/author/mwiesner/">Mike Wiesner</a><br>
+<a href="http://blog.springsource.org/author/ogierke/">Oliver Gierke</a><br>
+<a href="http://blog.springsource.org/author/pcooperellis/">Peter Cooper-Ellis</a><br>
+<a href="http://blog.springsource.org/author/ramnivasl/">Ramnivas Laddad</a><br>
+<a href="http://blog.springsource.org/author/rwinch/">Rob Winch</a><br>
+<a href="http://blog.springsource.org/author/rstoyanchev/">Rossen Stoyanchev</a><br>
+<a href="http://blog.springsource.org/author/andrewss/">Scott Andrews</a><br>
+<a href="http://blog.springsource.org/author/trisberg/">Thomas Risberg</a>
+
+
+
+</div>
+<p>&nbsp;</p></div></div>
+		</li>
+<li id="categories-227402801" class="widget widget_categories"><h2 class="widgettitle">Categories</h2>
+		<ul>
+	<li class="cat-item cat-item-8"><a href="http://blog.springsource.org/category/spring/20/" title="View all posts filed under 2.0">2.0</a> (29)
+</li>
+	<li class="cat-item cat-item-22"><a href="http://blog.springsource.org/category/spring/25-21/" title="View all posts filed under 2.5/2.1">2.5/2.1</a> (18)
+</li>
+	<li class="cat-item cat-item-35"><a href="http://blog.springsource.org/category/spring/30/" title="News and information about Spring 3.0">3.0</a> (38)
+</li>
+	<li class="cat-item cat-item-97"><a href="http://blog.springsource.org/category/spring/31/" title="News and information about Spring 3.1">3.1</a> (18)
+</li>
+	<li class="cat-item cat-item-78"><a href="http://blog.springsource.org/category/amqp/" title="View all posts filed under AMQP">AMQP</a> (7)
+</li>
+	<li class="cat-item cat-item-95"><a href="http://blog.springsource.org/category/android/" title="View all posts filed under Android">Android</a> (4)
+</li>
+	<li class="cat-item cat-item-5"><a href="http://blog.springsource.org/category/aop/" title="View all posts filed under AOP">AOP</a> (20)
+</li>
+	<li class="cat-item cat-item-42"><a href="http://blog.springsource.org/category/apache-tomcat/" title="View all posts filed under Apache Tomcat">Apache Tomcat</a> (7)
+</li>
+	<li class="cat-item cat-item-118"><a href="http://blog.springsource.org/category/big-data/" title="View all posts filed under Big Data">Big Data</a> (7)
+</li>
+	<li class="cat-item cat-item-11"><a href="http://blog.springsource.org/category/books/" title="View all posts filed under Books">Books</a> (3)
+</li>
+	<li class="cat-item cat-item-19"><a href="http://blog.springsource.org/category/builds/" title="View all posts filed under Builds">Builds</a> (16)
+</li>
+	<li class="cat-item cat-item-54"><a href="http://blog.springsource.org/category/bundlor/" title="View all posts filed under Bundlor">Bundlor</a> (1)
+</li>
+	<li class="cat-item cat-item-24"><a href="http://blog.springsource.org/category/business/" title="View all posts filed under Business">Business</a> (28)
+</li>
+	<li class="cat-item cat-item-48"><a href="http://blog.springsource.org/category/cloud-computing/" title="Cloud management, monitoring and development">Cloud Computing</a> (52)
+</li>
+	<li class="cat-item cat-item-61"><a href="http://blog.springsource.org/category/springsource/vmware-springsource/cloud-foundry/" title="View all posts filed under Cloud Foundry">Cloud Foundry</a> (18)
+</li>
+	<li class="cat-item cat-item-13"><a href="http://blog.springsource.org/category/containers/" title="View all posts filed under Containers">Containers</a> (12)
+</li>
+	<li class="cat-item cat-item-9"><a href="http://blog.springsource.org/category/data-access/" title="View all posts filed under Data Access">Data Access</a> (42)
+</li>
+	<li class="cat-item cat-item-27"><a href="http://blog.springsource.org/category/application-platform/" title="View all posts filed under dm Server">dm Server</a> (64)
+</li>
+	<li class="cat-item cat-item-68"><a href="http://blog.springsource.org/category/enterprise-integration/" title="View all posts filed under Enterprise Integration">Enterprise Integration</a> (26)
+</li>
+	<li class="cat-item cat-item-73"><a href="http://blog.springsource.org/category/springsource/google-springsource/" title="View all posts filed under Google">Google</a> (3)
+</li>
+	<li class="cat-item cat-item-93"><a href="http://blog.springsource.org/category/green-beans/" title="View all posts filed under Green Beans">Green Beans</a> (6)
+</li>
+	<li class="cat-item cat-item-34"><a href="http://blog.springsource.org/category/groovy-grails/" title="View all posts filed under Groovy/Grails">Groovy/Grails</a> (54)
+</li>
+	<li class="cat-item cat-item-119"><a href="http://blog.springsource.org/category/hadoop/" title="View all posts filed under Hadoop">Hadoop</a> (3)
+</li>
+	<li class="cat-item cat-item-66"><a href="http://blog.springsource.org/category/management-tools/hyperic-hq/" title="View all posts filed under Hyperic HQ">Hyperic HQ</a> (6)
+</li>
+	<li class="cat-item cat-item-67"><a href="http://blog.springsource.org/category/management-tools/hyperic-iq/" title="View all posts filed under Hyperic IQ">Hyperic IQ</a> (1)
+</li>
+	<li class="cat-item cat-item-12"><a href="http://blog.springsource.org/category/ioc-container/" title="View all posts filed under IOC Container">IOC Container</a> (32)
+</li>
+	<li class="cat-item cat-item-15"><a href="http://blog.springsource.org/category/java/" title="View all posts filed under Java">Java</a> (85)
+</li>
+	<li class="cat-item cat-item-7"><a href="http://blog.springsource.org/category/jms/" title="View all posts filed under JMS">JMS</a> (6)
+</li>
+	<li class="cat-item cat-item-6"><a href="http://blog.springsource.org/category/jmx/" title="View all posts filed under JMX">JMX</a> (4)
+</li>
+	<li class="cat-item cat-item-21"><a href="http://blog.springsource.org/category/jsf/" title="View all posts filed under JSF">JSF</a> (2)
+</li>
+	<li class="cat-item cat-item-65"><a href="http://blog.springsource.org/category/management-tools/" title="View all posts filed under Management Tools">Management Tools</a> (1)
+</li>
+	<li class="cat-item cat-item-23"><a href="http://blog.springsource.org/category/open-source/" title="View all posts filed under Open Source">Open Source</a> (91)
+</li>
+	<li class="cat-item cat-item-17"><a href="http://blog.springsource.org/category/osgi/" title="OSGi related content">OSGi</a> (72)
+</li>
+	<li class="cat-item cat-item-63"><a href="http://blog.springsource.org/category/roo/" title="View all posts filed under Roo">Roo</a> (17)
+</li>
+	<li class="cat-item cat-item-109"><a href="http://blog.springsource.org/category/scala/" title="View all posts filed under Scala">Scala</a> (2)
+</li>
+	<li class="cat-item cat-item-14"><a href="http://blog.springsource.org/category/security/" title="View all posts filed under Security">Security</a> (25)
+</li>
+	<li class="cat-item cat-item-49"><a href="http://blog.springsource.org/category/slices/" title="View all posts filed under Slices">Slices</a> (1)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://blog.springsource.org/category/spring/" title="View all posts filed under Spring">Spring</a> (394)
+</li>
+	<li class="cat-item cat-item-71"><a href="http://blog.springsource.org/category/spring-batch/" title="View all posts filed under Spring Batch">Spring Batch</a> (3)
+</li>
+	<li class="cat-item cat-item-104"><a href="http://blog.springsource.org/category/spring-data/" title="View all posts filed under Spring Data">Spring Data</a> (15)
+</li>
+	<li class="cat-item cat-item-4"><a href="http://blog.springsource.org/category/spring-events/" title="View all posts filed under Spring Events">Spring Events</a> (23)
+</li>
+	<li class="cat-item cat-item-69"><a href="http://blog.springsource.org/category/spring-integration/" title="View all posts filed under Spring Integration">Spring Integration</a> (19)
+</li>
+	<li class="cat-item cat-item-74"><a href="http://blog.springsource.org/category/spring-python/" title="View all posts filed under Spring Python">Spring Python</a> (4)
+</li>
+	<li class="cat-item cat-item-2"><a href="http://blog.springsource.org/category/springsource/" title="View all posts filed under SpringSource">SpringSource</a> (54)
+</li>
+	<li class="cat-item cat-item-46"><a href="http://blog.springsource.org/category/tc-server/" title="View all posts filed under tc Server">tc Server</a> (10)
+</li>
+	<li class="cat-item cat-item-16"><a href="http://blog.springsource.org/category/testing/" title="View all posts filed under Testing">Testing</a> (14)
+</li>
+	<li class="cat-item cat-item-41"><a href="http://blog.springsource.org/category/tools/" title="View all posts filed under Tools">Tools</a> (53)
+</li>
+	<li class="cat-item cat-item-26"><a href="http://blog.springsource.org/category/training-certification/" title="View all posts filed under Training/Certification">Training/Certification</a> (2)
+</li>
+	<li class="cat-item cat-item-72"><a href="http://blog.springsource.org/category/springsource/vmware-springsource/" title="View all posts filed under VMware">VMware</a> (7)
+</li>
+	<li class="cat-item cat-item-25"><a href="http://blog.springsource.org/category/web/" title="View all posts filed under Web">Web</a> (51)
+</li>
+	<li class="cat-item cat-item-20"><a href="http://blog.springsource.org/category/web-flow/" title="View all posts filed under Web Flow">Web Flow</a> (9)
+</li>
+	<li class="cat-item cat-item-18"><a href="http://blog.springsource.org/category/web-services/" title="View all posts filed under Web Services">Web Services</a> (7)
+</li>
+		</ul>
+</li>
+<li id="linkcat-29" class="widget widget_links"><h2 class="widgettitle">Websites</h2>
+
+	<ul class="xoxo blogroll">
+<li><a href="http://www.springsource.org/" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Framework</a></li>
+<li><a href="http://mylearn.vmware.com/mgrReg/plan.cfm?plan=31719&amp;ui=www_edu" target="_blank">Spring Training</a></li>
+
+	</ul>
+</li>
+
+<li id="archives-3" class="widget widget_archive"><h2 class="widgettitle">Archives</h2>
+		<ul>
+			<li><a href="http://blog.springsource.org/2013/08/" title="August 2013">August 2013</a></li>
+	<li><a href="http://blog.springsource.org/2013/07/" title="July 2013">July 2013</a></li>
+	<li><a href="http://blog.springsource.org/2013/06/" title="June 2013">June 2013</a></li>
+	<li><a href="http://blog.springsource.org/2013/05/" title="May 2013">May 2013</a></li>
+	<li><a href="http://blog.springsource.org/2013/04/" title="April 2013">April 2013</a></li>
+	<li><a href="http://blog.springsource.org/2013/03/" title="March 2013">March 2013</a></li>
+	<li><a href="http://blog.springsource.org/2013/02/" title="February 2013">February 2013</a></li>
+	<li><a href="http://blog.springsource.org/2013/01/" title="January 2013">January 2013</a></li>
+	<li><a href="http://blog.springsource.org/2012/12/" title="December 2012">December 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/11/" title="November 2012">November 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/10/" title="October 2012">October 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/09/" title="September 2012">September 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/08/" title="August 2012">August 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/07/" title="July 2012">July 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/06/" title="June 2012">June 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/05/" title="May 2012">May 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/04/" title="April 2012">April 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/03/" title="March 2012">March 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/02/" title="February 2012">February 2012</a></li>
+	<li><a href="http://blog.springsource.org/2012/01/" title="January 2012">January 2012</a></li>
+	<li><a href="http://blog.springsource.org/2011/12/" title="December 2011">December 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/11/" title="November 2011">November 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/10/" title="October 2011">October 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/09/" title="September 2011">September 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/08/" title="August 2011">August 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/07/" title="July 2011">July 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/06/" title="June 2011">June 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/05/" title="May 2011">May 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/04/" title="April 2011">April 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/03/" title="March 2011">March 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/02/" title="February 2011">February 2011</a></li>
+	<li><a href="http://blog.springsource.org/2011/01/" title="January 2011">January 2011</a></li>
+	<li><a href="http://blog.springsource.org/2010/12/" title="December 2010">December 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/11/" title="November 2010">November 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/10/" title="October 2010">October 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/09/" title="September 2010">September 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/08/" title="August 2010">August 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/07/" title="July 2010">July 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/06/" title="June 2010">June 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/05/" title="May 2010">May 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/04/" title="April 2010">April 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/03/" title="March 2010">March 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/02/" title="February 2010">February 2010</a></li>
+	<li><a href="http://blog.springsource.org/2010/01/" title="January 2010">January 2010</a></li>
+	<li><a href="http://blog.springsource.org/2009/12/" title="December 2009">December 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/11/" title="November 2009">November 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/10/" title="October 2009">October 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/09/" title="September 2009">September 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/08/" title="August 2009">August 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/07/" title="July 2009">July 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/06/" title="June 2009">June 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/05/" title="May 2009">May 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/04/" title="April 2009">April 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/03/" title="March 2009">March 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/02/" title="February 2009">February 2009</a></li>
+	<li><a href="http://blog.springsource.org/2009/01/" title="January 2009">January 2009</a></li>
+	<li><a href="http://blog.springsource.org/2008/12/" title="December 2008">December 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/11/" title="November 2008">November 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/10/" title="October 2008">October 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/09/" title="September 2008">September 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/08/" title="August 2008">August 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/07/" title="July 2008">July 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/06/" title="June 2008">June 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/05/" title="May 2008">May 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/04/" title="April 2008">April 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/03/" title="March 2008">March 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/02/" title="February 2008">February 2008</a></li>
+	<li><a href="http://blog.springsource.org/2008/01/" title="January 2008">January 2008</a></li>
+	<li><a href="http://blog.springsource.org/2007/12/" title="December 2007">December 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/11/" title="November 2007">November 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/10/" title="October 2007">October 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/09/" title="September 2007">September 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/08/" title="August 2007">August 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/07/" title="July 2007">July 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/06/" title="June 2007">June 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/05/" title="May 2007">May 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/04/" title="April 2007">April 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/03/" title="March 2007">March 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/02/" title="February 2007">February 2007</a></li>
+	<li><a href="http://blog.springsource.org/2007/01/" title="January 2007">January 2007</a></li>
+	<li><a href="http://blog.springsource.org/2006/12/" title="December 2006">December 2006</a></li>
+	<li><a href="http://blog.springsource.org/2006/11/" title="November 2006">November 2006</a></li>
+	<li><a href="http://blog.springsource.org/2006/10/" title="October 2006">October 2006</a></li>
+	<li><a href="http://blog.springsource.org/2006/09/" title="September 2006">September 2006</a></li>
+	<li><a href="http://blog.springsource.org/2006/08/" title="August 2006">August 2006</a></li>
+	<li><a href="http://blog.springsource.org/2006/07/" title="July 2006">July 2006</a></li>
+	<li><a href="http://blog.springsource.org/2006/05/" title="May 2006">May 2006</a></li>
+	<li><a href="http://blog.springsource.org/2006/04/" title="April 2006">April 2006</a></li>
+	<li><a href="http://blog.springsource.org/2006/03/" title="March 2006">March 2006</a></li>
+	<li><a href="http://blog.springsource.org/2006/02/" title="February 2006">February 2006</a></li>
+	<li><a href="http://blog.springsource.org/2004/08/" title="August 2004">August 2004</a></li>
+		</ul>
+</li>
+	</ul>
+	<div class="clear"></div>
+</div>
+<div class="linkbar"></div>
+
+<div id="lead" class="widecontent fullcontent">
+	<div class="post" id="post-13986">
+	<table><tbody><tr><td valign="top" width="90%"><h2 style="text-align:left;margin-left:-4px;"><a href="http://blog.springsource.org/2013/07/24/spring-framework-4-0-m2-websocket-messaging-architectures/" rel="bookmark" title="Permanent Link">Spring Framework 4.0 M2: WebSocket Messaging Architectures</a></h2></td>
+	<td valign="top">
+	<!--<a class="a2a_dd" href="http://www.addtoany.com/share_save" target="_blank"><img src="http://www.springsource.org/sites/all/themes/s2org11/images/button_share.png"></a>
+	<script type="text/javascript">
+	var a2a_config = a2a_config || {};
+	a2a_config.color_main = "e5e6e6";
+	a2a_config.color_border = "5c6c75";
+	a2a_config.color_link_text = "333333";
+	a2a_config.color_link_text_hover = "333333";
+	var a2a_config = a2a_config || {};
+	a2a_config.onclick = 1;
+	</script>
+<script type="text/javascript" src="http://www.wavemaker.com/_js/addtoany.js"></script>-->
+   </td>
+   </tr>
+   </tbody></table>
+			<p class="postmetadata"><small>
+			Posted on July 24th, 2013 by <a href="http://blog.springsource.org/author/rstoyanchev/" title="Posts by Rossen Stoyanchev">Rossen Stoyanchev</a> in <a href="http://blog.springsource.org/category/spring/" title="View all posts in Spring" rel="category tag">Spring</a>, <a href="http://blog.springsource.org/category/web/" title="View all posts in Web" rel="category tag">Web</a>.</small></p>
+
+	<div class="entrytext">
+		<!--CHANGED: BEN HALE --><a href="http://blog.springsource.org/author/rstoyanchev/" title="Posts by Rossen Stoyanchev"><img src="WebSocketBlogPost_files/rstoyanchev.jpg" alt="Rossen Stoyanchev" title="Rossen Stoyanchev" class="author_image"></a><p><strong>Overview</strong></p>
+<p>As I <a href="http://blog.springsource.org/2013/05/22/spring-framework-4-0-m1-websocket-support">wrote previously</a>,
+ a WebSocket API is only the starting point for WebSocket-style 
+messaging applications. Many practical challenges remain. As one Tomcat 
+mailing list user <a href="http://markmail.org/message/j2k2dtmbu4p2zgqd" onclick="javascript:urchinTracker('/outbound/markmail.org');">mused recently</a>:</p>
+<blockquote><p>it does seem to me that websockets is still not really 
+"production-ready",  (I am not talking about the Tomcat implementation 
+per se, but more generally) … native websockets capability in IE is only
+ available since IE-10 and that solutions which allow this to work in 
+lower IE versions are a bit "iffy" (relying on a diversion through 
+Adobe's FlashPlayer e.g.). (Most of our customers are largish 
+corporations, which are not going to update their browsers, nor open 
+special ports in their firewalls, just to please us).
+</p></blockquote>
+<p>The first milestone of Spring Framework 4.0 provided server-side support for <a href="http://sockjs.org/" onclick="javascript:urchinTracker('/outbound/sockjs.org');">SockJS</a>,
+ the best and the most comprehensive WebSocket browser fallback options.
+ You will need fallback options in browsers that don't support WebSocket
+ and in situations where network proxies <a href="http://www.infoq.com/articles/Web-Sockets-Proxy-Servers" onclick="javascript:urchinTracker('/outbound/www.infoq.com');">prevent its use</a>. Simply put SockJS enables you to build WebSocket applications today and rely on transparent fallback options when necessary.</p>
+<p>Even with fallback options, bigger challenges remain. A socket is a 
+very low-level abstraction and the vast majority of web applications 
+today do not program to sockets. This is why the WebSocket protocol 
+defines a sub-protocol mechanism that essentially enables, and 
+encourages, the use of higher-level protocols over WebSocket, much like 
+we use HTTP over TCP.</p>
+<p>The second milestone of Spring Framework 4.0 enables the use of 
+higher-level messaging protocols over WebSocket. To demonstrate this 
+we've put together a sample application.</p>
+<p><strong>Stock Portfolio Sample</strong></p>
+<p>The Stock Portfolio sample application, <a href="https://github.com/rstoyanchev/spring-websocket-portfolio">available on Github</a>,
+ loads a user's portfolio positions, allows buying and selling shares, 
+consumes price quotes, and displays position updates. It is a reasonably
+ simple application. Yet it handles a number of common tasks that are 
+likely to come up in browser-based messaging applications.</p>
+<p><a href="http://blog.springsource.org/wp-content/uploads/2013/07/m2-stock-portfolio-application.png" rel="lightbox[13986]"><img src="WebSocketBlogPost_files/m2-stock-portfolio-application.png" alt="Snapshot of Stock Portfolio Application" title="Snapshot of Stock Portfolio Application" class="alignnone size-full wp-image-13995" height="280" width="575"></a></p>
+<p>So how do we put together an application like that? From HTTP and 
+REST we are used to relying on URLs along with HTTP verbs to express 
+what needs to be done. Here we have a socket and lots of messages. How 
+do you tell who a message is for and what the message means?</p>
+<p><a href="http://blog.springsource.org/wp-content/uploads/2013/07/m2-message-format.png" rel="lightbox[13986]"><img src="WebSocketBlogPost_files/m2-message-format.png" alt="Browser and Server exchange messages but what's in the message?" title="Browser and Server exchange messages but what's in the message?" class="alignnone size-full wp-image-14029" height="212" width="457"></a></p>
+<p>Browser and server must agree on a common message format before such 
+semantics can be expressed. Several protocols exist that can help. We 
+chose <a href="http://stomp.github.io/stomp-specification-1.2.html#Overview" onclick="javascript:urchinTracker('/outbound/stomp.github.io');">STOMP</a> for this milestone due to its simplicity and <a href="http://stomp.github.io/implementations.html" onclick="javascript:urchinTracker('/outbound/stomp.github.io');">wide support</a>.</p>
+<p><strong>Simple/Streaming Text-Oriented Messaging Protocol (STOMP)</strong></p>
+<p><a href="http://stomp.github.io/stomp-specification-1.2.html#Overview" onclick="javascript:urchinTracker('/outbound/stomp.github.io');">STOMP</a>
+ is a messaging protocol created with simplicity in mind. It is based on
+ frames modelled on HTTP. A frame consists of a command, optional 
+headers, and optional body.</p>
+<p>For example the Stock Portfolio application needs to receive stock quotes, so the client sends a <code>SUBSCRIBE</code> frame where the <code>destination</code> header indicates what the client wants to subscribe to:</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_347899"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_347899_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_347899" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">SUBSCRIBE</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">id:sub-1</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">destination:/topic/price.stock.*</code></td></tr></tbody></table></div></div></div>
+<p>As stock quotes become available, the server sends a <code>MESSAGE</code> frame with a matching destination and subscription id as well as a content-type header and a body:</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_956699"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_956699_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_956699" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">MESSAGE</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">subscription:sub-1</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">message-id:wm2si1tj-4</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">content-type: application/json</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">destination:/topic/stocks.PRICE.STOCK.NASDAQ.EMC</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">{\"ticker\":\"EMC\",\"price\":24.19}</code></td></tr></tbody></table></div></div></div>
+<p>To do all that in the browser we use <a href="https://github.com/jmesnil/stomp-websocket/">stomp.js</a> and the <a href="http://github.com/sockjs/sockjs-client" onclick="javascript:urchinTracker('/outbound/github.com');">SockJS client</a>:</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_116908"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_116908_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_116908" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">var</code> <code class="plain">socket = </code><code class="keyword">new</code> <code class="plain">SockJS(</code><code class="string">'/spring-websocket-portfolio/portfolio'</code><code class="plain">);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="keyword">var</code> <code class="plain">client = Stomp.over(socket);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="keyword">var</code> <code class="plain">onConnect = </code><code class="keyword">function</code><code class="plain">() {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">client.subscribe(</code><code class="string">"/topic/price.stock.*"</code><code class="plain">, </code><code class="keyword">function</code><code class="plain">(message) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="comments">// process quote</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">});</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">};</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">client.connect(</code><code class="string">'guest'</code><code class="plain">, </code><code class="string">'guest'</code><code class="plain">, onConnect);</code></td></tr></tbody></table></div></div></div>
+<p>This is a huge gain already!! We have a standard message format and client-side support. </p>
+<p>Now we can move one to the server side.</p>
+<p><strong>Message-Broker Solution</strong></p>
+<p>One server-side option is a pure message-broker solution where 
+messages are sent directly to a traditional message broker like 
+RabbitMQ, ActiveMQ, etc. Most, if not all brokers, support STOMP over 
+TCP but increasingly they support it over WebSocket too while RabbitMQ 
+goes further and also supports SockJS. Our architecture would look like 
+this:</p>
+<p><a href="http://blog.springsource.org/wp-content/uploads/2013/07/me-broker-solution.png" rel="lightbox[13986]"><img src="WebSocketBlogPost_files/me-broker-solution.png" alt="Browser sends STOMP messages to broker, application connects to broker via AMQP or JMS" title="Browser sends STOMP messages to broker, application connects to broker via AMQP or JMS" class="alignnone size-full wp-image-14030" height="213" width="568"></a></p>
+<p>This is a robust and scalable solution but arguably not the best fit 
+for the problem at hand. Message brokers have typically been used within
+ the enterprise. Exposing them directly over the web isn't ideal. </p>
+<p>If we've learned anything from REST it is that we don't want to 
+expose details about the internals of our system like the database or 
+the domain model.</p>
+<p>Furthermore, as a Java developer you want to apply security, 
+validation, and add application logic. In a message-broker solution the 
+application server sits behind the message broker, which is a 
+significant departure from what most web application developer are used 
+to.</p>
+<p>This is why a library such as <a href="http://socket.io/" onclick="javascript:urchinTracker('/outbound/socket.io');">socket.io</a>
+ is popular. It is simple and it targets the needs of web applications. 
+On other hand we must not ignore the capabilities of message brokers to 
+handle messages, they are really good at it and messaging is a hard 
+problem. We need the best of both.</p>
+<p><strong>Application and Message-Broker Solution</strong></p>
+<p>Another approach is to make the application handle incoming messages 
+and serve as intermediary between web clients and the message broker. 
+Messages from clients can flow to the broker through the application and
+ reversely messages from the broker can flow back to clients through the
+ application. This gives the application a chance to examine the 
+incoming <a href="http://stomp.github.io/stomp-specification-1.2.html#Client_Frames" onclick="javascript:urchinTracker('/outbound/stomp.github.io');">message type</a> and "destination" header and decide whether to handle the message or pass it on to the broker.</p>
+<p><a href="http://blog.springsource.org/wp-content/uploads/2013/07/m2-app-server-broker.png" rel="lightbox[13986]"><img src="WebSocketBlogPost_files/m2-app-server-broker.png" alt="Browser sends messages to application that in turn sends messages to a message broker" title="Browser sends messages to application that in turn sends messages to a message broker" class="alignnone size-full wp-image-14027" height="211" width="567"></a></p>
+<p>This is the approach we've chosen. To illustrate better here are some scenarios.<br>
+</p>
+<p>Load portfolio positions</p>
+<ul>
+<li>Client requests portfolio positions
+</li><li>The application handles the request by loading and returning the data to the subscription
+</li><li><em>The message broker is not involved in this interaction</em>
+</li></ul>
+<p></p>
+<p>Subscribe for stock quotes</p>
+<ul>
+<li>Client sends subscription request for stock quotes
+</li><li>The application passes the message to the message broker
+</li><li>The message broker propagates the message to all subscribed clients
+</li></ul>
+<p></p>
+<p>Receive stock quotes</p>
+<ul>
+<li>QuoteService sends stock quote message to the message broker
+</li><li>The message broker propagates the message to all subscribed clients
+</li></ul>
+<p></p>
+<p>Execute a trade</p>
+<ul>
+<li>Client sends trade request
+</li><li>The application handles it, submits the trade for execution through the TradeService
+</li><li><em>The message broker is not involved in this interaction</em>
+</li></ul>
+<p></p>
+<p>Receive position update</p>
+<ul>
+<li>Trade service sends a position update message to a queue on the message broker
+</li><li>The message broker sends the position update to the client
+</li><li><em>Sending messages to a specific user is covered in more detail further below</em>
+</li></ul>
+<p></p>
+<p>Strictly speaking the use of a message broker is optional. We provide
+ an out-of-the-box "simple" alternative for getting-started. However the
+ use of a message broker is recommended for scalability and for 
+deployments with multiple application servers.</p>
+<p><strong>Code Snippets</strong></p>
+<p>Let's see some examples of client and server-side code.</p>
+<p>This is <a href="https://github.com/rstoyanchev/spring-websocket-portfolio/blob/master/src/main/webapp/assets/js/portfolio.js">portfolio.js</a> requesting portfolio positions:</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_195839"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_195839_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_195839" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">stompClient.subscribe(</code><code class="string">"/app/positions"</code><code class="plain">, </code><code class="keyword">function</code><code class="plain">(message) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">self.portfolio().loadPositions(JSON.parse(message.body));</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">});</code></td></tr></tbody></table></div></div></div>
+<p>On the server side <a href="https://github.com/rstoyanchev/spring-websocket-portfolio/blob/master/src/main/java/org/springframework/samples/portfolio/web/PortfolioController.java">PortfolioController</a>
+ detects the request and returns portfolio positions demonstrating a 
+request-reply interaction that is very common in web applications. Since
+ we use Spring Security to protect HTTP requests, including the one 
+leading to the WebSocket handshake, the <code>principal</code> method argument below is taken from the user principal Spring Security set on the HttpServletRequest.</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_970760"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_970760_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_970760" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="color1">@Controller</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="keyword">public</code> <code class="keyword">class</code> <code class="plain">PortfolioController {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="comments">// ...</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="color1">@SubscribeEvent</code><code class="plain">(</code><code class="string">"/app/positions"</code><code class="plain">)</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="keyword">public</code> <code class="plain">List&lt;PortfolioPosition&gt; getPortfolios(Principal principal) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">String user = principal.getName();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">Portfolio portfolio = </code><code class="keyword">this</code><code class="plain">.portfolioService.findPortfolio(user);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">portfolio.getPositions();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<p>This is <code>portfolio.js</code> sending a trade request:</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_126546"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_126546_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_126546" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">stompClient.send(</code><code class="string">"/app/trade"</code><code class="plain">, {}, JSON.stringify(trade));</code></td></tr></tbody></table></div></div></div>
+<p>On the server side <code>PortfolioController</code> sends the trade for execution:</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_26219"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_26219_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_26219" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="color1">@Controller</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="keyword">public</code> <code class="keyword">class</code> <code class="plain">PortfolioController {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="comments">// ...</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="color1">@MessageMapping</code><code class="plain">(value=</code><code class="string">"/app/trade"</code><code class="plain">)</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="keyword">public</code> <code class="keyword">void</code> <code class="plain">executeTrade(Trade trade, Principal principal) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">trade.setUsername(principal.getName());</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.tradeService.executeTrade(trade);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<p><code>PortfolioController</code> can also handle unexpected exceptions by sending a message to the user.</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_79272"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_79272_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_79272" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="color1">@Controller</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="keyword">public</code> <code class="keyword">class</code> <code class="plain">PortfolioController {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="comments">// ...</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="color1">@MessageExceptionHandler</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="color1">@ReplyToUser</code><code class="plain">(value=</code><code class="string">"/queue/errors"</code><code class="plain">)</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="keyword">public</code> <code class="plain">String handleException(Throwable exception) {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">exception.getMessage();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<p>What about sending messages from within the application to subscribed clients? This is how the <code>QuoteService</code> sends quotes:</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_575933"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_575933_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_575933" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="color1">@Service</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="keyword">public</code> <code class="keyword">class</code> <code class="plain">QuoteService {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="keyword">private</code> <code class="keyword">final</code> <code class="plain">MessageSendingOperations&lt;String&gt; messagingTemplate;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="color1">@Scheduled</code><code class="plain">(fixedDelay=</code><code class="value">1000</code><code class="plain">)</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="keyword">public</code> <code class="keyword">void</code> <code class="plain">sendQuotes() {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">for</code> <code class="plain">(Quote quote : </code><code class="keyword">this</code><code class="plain">.quoteGenerator.generateQuotes()) {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">String destination = </code><code class="string">"/topic/price.stock."</code> <code class="plain">+ quote.getTicker();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.messagingTemplate.convertAndSend(destination, quote);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<p>And this is how the <code>TradeService</code> sends position updates after a trade is executed:</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_143128"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_143128_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_143128" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="color1">@Service</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="keyword">public</code> <code class="keyword">class</code> <code class="plain">TradeService {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="comments">// ...</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="color1">@Scheduled</code><code class="plain">(fixedDelay=</code><code class="value">1500</code><code class="plain">)</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="keyword">public</code> <code class="keyword">void</code> <code class="plain">sendTradeNotifications() {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">for</code> <code class="plain">(TradeResult tr : </code><code class="keyword">this</code><code class="plain">.tradeResults) {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">String queue = </code><code class="string">"/queue/position-updates"</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.messagingTemplate.convertAndSendToUser(tr.user, queue, tr.position);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<p>And just in case you're wondering… yes <code>PortfolioController</code> can also contain Spring MVC methods (e.g. <code>@RequestMapping</code>) as suggested <a href="https://jira.springsource.org/browse/SPR-9356?focusedCommentId=88191&amp;page=com.atlassian.jira.plugin.system.issuetabpanels:comment-tabpanel#comment-88191">in this ticket</a> by a developer who previously built an online game application:</p>
+<blockquote><p>Yes, having [message] mappings and spring mvc mappings consolidated would be nice. There is no reason why they can't be unified.</p></blockquote>
+<p>And just like the QuoteService and TradeService, Spring MVC controller methods can publish messages too.</p>
+<p><strong>Messaging Support For Spring Applications</strong></p>
+<p>For a long time <a href="http://www.springsource.org/spring-integration" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Integration</a> has provided first-class abstractions for the well-known <a href="http://www.eaipatterns.com/" onclick="javascript:urchinTracker('/outbound/www.eaipatterns.com');">Enterprise Integration patterns</a>
+ as well as lightweight messagings. While working on this milestone we 
+realized the latter was exactly what we needed to build on.</p>
+<p>As a result I'm pleased to announce we've moved a selection of Spring
+ Integration types to the Spring Framework into a new module predictably
+ called <a href="https://github.com/SpringSource/spring-framework/tree/master/spring-messaging/src/main/java/org/springframework/messaging">spring-messaging</a>. Besides core abstractions such as <code>Message</code>, <code>MessageChannel</code>, <code>MessageHandler</code>, and others, the new module contains all the annotations and classes to support the new features described in this post. </p>
+<p>With that in mind we can now look at a diagram of the internal architecture of the Stock Portfolio application:</p>
+<p><a href="http://blog.springsource.org/wp-content/uploads/2013/07/m2-internal-architecture.png" rel="lightbox[13986]"><img src="WebSocketBlogPost_files/m2-internal-architecture.png" alt="Diagram of internal architecture with message broker" title="Diagram of internal architecture with message broker" class="alignnone size-full wp-image-14028" height="221" width="600"></a></p>
+<p><code>StompWebSocketHandler</code> puts incoming client messages on 
+the "dispatch" message channel. There are 3 subscribers to this channel.
+ The first one delegates to annotated methods, the second relays 
+messages to a STOMP message broker, while the third one handles messages
+ to individual users by transforming the destination into a unique queue
+ name to which the client is subscribed (more detail to come).</p>
+<p>By default the application runs with a "simple" message broker provided as a getting-started option. As explained in the sample <a href="https://github.com/rstoyanchev/spring-websocket-portfolio">README</a>, you can alternate between the "simple" and a full-featured message broker by activating and de-activating profiles.</p>
+<p><a href="http://blog.springsource.org/wp-content/uploads/2013/07/m2-simple-broker.png" rel="lightbox[13986]"><img src="WebSocketBlogPost_files/m2-simple-broker.png" alt="Diagram of internal architecture with simple broker" title="Diagram of internal architecture with simple broker" class="alignnone size-full wp-image-14048" height="240" width="500"></a></p>
+<p>Another possible configuration change is to switch from <a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Executor.html" onclick="javascript:urchinTracker('/outbound/docs.oracle.com');">Executor</a> to <a href="https://github.com/reactor/reactor">Reactor</a>-based implementations of MessageChannel for message passing. The Reactor project that recently released a <a href="http://blog.springsource.org/2013/07/18/reactor-1-0-0-m1-a-foundation-for-asynchronous-fast-data-applications-on-the-jvm/">first milestone</a> is also used to manage TCP connections between the application and the message broker.</p>
+<p>You can see the <a href="https://github.com/rstoyanchev/spring-websocket-portfolio/blob/master/src/main/java/org/springframework/samples/portfolio/config">full application configuration</a> that also includes the new <a href="http://blog.springsource.org/2013/07/11/spring-security-java-config-preview-readability/">Spring Security Java configuration</a>. You might also be interested in the <a href="http://blog.springsource.org/2013/07/18/javaconfig-support-in-the-spring-tool-suite/">improved STS support</a> for Java configuration.</p>
+<p><strong>Sending Messages To a Single User</strong></p>
+<p>It is easy to see how messages can be broadcast to multiple 
+subscribed clients, just publish a message to a topic. It is more 
+difficult to see how to send a message to a specific user. For example 
+you may catch an exception and would like to send an error message. Or 
+you may have received a trade confirmation and would like to send it to 
+the user.</p>
+<p>In traditional messaging applications it is common to create a 
+temporary queue and set a "reply-to" header on any message to which a 
+reply is expected. This works but feels rather cumbersome in web 
+applications. The client must remember to set the necessary header on 
+all applicable messages and the server application may need to keep 
+track and pass this around. Sometimes such information may simply not be
+ readily available, e.g. while handling an HTTP POST as an alternative 
+to passing messages.</p>
+<p>To support this requirement, we send a unique queue suffix to every 
+connected client. The suffix can then be appended to create unique queue
+ names.</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_669086"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_669086_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_669086" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">client.connect(</code><code class="string">'guest'</code><code class="plain">, </code><code class="string">'guest'</code><code class="plain">, </code><code class="keyword">function</code><code class="plain">(frame) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="keyword">var</code> <code class="plain">suffix = frame.headers[</code><code class="string">'queue-suffix'</code><code class="plain">];</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">client.subscribe(</code><code class="string">"/queue/error"</code> <code class="plain">+ suffix, </code><code class="keyword">function</code><code class="plain">(msg) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="comments">// handle error</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">});</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">client.subscribe(</code><code class="string">"/queue/position-updates"</code> <code class="plain">+ suffix, </code><code class="keyword">function</code><code class="plain">(msg) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="comments">// handle position update</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">});</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">});</code></td></tr></tbody></table></div></div></div>
+<p>Then on the server-side an <code>@MessageExceptionHandler</code> method (or any message-handling method) can add an <code>@ReplyToUser</code> annotation to send the return value as a message.</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_466470"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_466470_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_466470" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="color1">@MessageExceptionHandler</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="color1">@ReplyToUser</code><code class="plain">(value=</code><code class="string">"/queue/errors"</code><code class="plain">)</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">public</code> <code class="plain">String handleException(Throwable exception) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="comments">// ...</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<p>All other classes, like the TradeService, can use a messaging template to achieve the same.</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_849157"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_849157_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_849157" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">String user = </code><code class="string">"fabrice"</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">String queue = </code><code class="string">"/queue/position-updates"</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">this</code><code class="plain">.messagingTemplate.convertAndSendToUser(user, queue, position);</code></td></tr></tbody></table></div></div></div>
+<p>In both cases internally we locate the user queue suffix (through the configured <a href="https://github.com/SpringSource/spring-framework/blob/master/spring-messaging/src/main/java/org/springframework/messaging/simp/handler/UserQueueSuffixResolver.java">UserQueueSuffixResolver</a>)
+ in order to reconstruct the correct queue name. At the moment there is 
+only one simple resolver implementation. However, it would be easy to 
+add a <a href="http://redis.io/" onclick="javascript:urchinTracker('/outbound/redis.io');">Redis</a>
+ implementation that would support the same feature regardless of 
+whether the user is connected to this or another application server.</p>
+<p><strong>Conclusion</strong></p>
+<p>Hopefully this has been a useful introduction of the new functionality. Rather than making the post longer, I encourage you to <a href="https://github.com/rstoyanchev/spring-websocket-portfolio">check the sample</a>
+ and consider what it means for applications you write or intend to 
+write. It is a perfect time for feedback as we work towards a release 
+candidate in early September.</p>
+<p>To use Spring Framework 4.0.0.M2 add the <a href="http://repo.springsource.org/libs-milestone" onclick="javascript:urchinTracker('/outbound/repo.springsource.org');">http://repo.springsource.org/libs-milestone</a> or the <a href="http://repo.springsource.org/milestone" onclick="javascript:urchinTracker('/outbound/repo.springsource.org');">http://repo.springsource.org/milestone</a> repositories to your configuration. The former includes transient dependencies as explained in our <a href="https://github.com/SpringSource/spring-framework/wiki/SpringSource-repository-FAQ">Repository FAQ</a>.</p>
+<p><strong>SpringOne 2GX 2013 is around the corner</strong></p>
+<p>Book your place at <a href="http://www.springone2gx.com/conference/santa_clara/2013/09/home" onclick="javascript:urchinTracker('/outbound/www.springone2gx.com');">SpringOne in Santa Clara</a>
+ soon. It's simply the best opportunity to find out first hand all 
+that's going on and to provide direct feedback. Expect a number of 
+significant new announcements this year. Check recent blog posts to see 
+what I mean and there is more to come!</p>
+<h2>Similar Posts</h2>
+<ul class="similar-posts">
+<li><a href="http://blog.springsource.org/2010/06/14/understanding-amqp-the-protocol-used-by-rabbitmq/" rel="bookmark" title="June 14, 2010">Understanding AMQP, the protocol used by RabbitMQ</a></li>
+<li><a href="http://blog.springsource.org/2012/05/08/spring-mvc-3-2-preview-techniques-for-real-time-updates/" rel="bookmark" title="May 8, 2012">Spring MVC 3.2 Preview: Techniques for Real-time Updates</a></li>
+<li><a href="http://blog.springsource.org/2010/08/23/rabbitmq-plugin-for-grails-early-access/" rel="bookmark" title="August 23, 2010">RabbitMQ Plugin for Grails – Early Access</a></li>
+<li><a href="http://blog.springsource.org/2010/09/20/mixing-rabbitmq-with-spring-python/" rel="bookmark" title="September 20, 2010">Mixing RabbitMQ with Spring Python</a></li>
+<li><a href="http://blog.springsource.org/2012/05/13/spring-mvc-3-2-preview-adding-long-polling-to-an-existing-web-application/" rel="bookmark" title="May 13, 2012">Spring MVC 3.2 Preview: Adding Long Polling to an Existing Web Application</a></li>
+</ul>
+<p><!-- Similar Posts took 13.233 ms --></p>
+
+<div class="sociable">
+<div class="sociable_tagline">
+<strong>Share this Post</strong>
+</div>
+<ul>
+	<li class="sociablefirst"><a rel="nofollow" target="_blank" href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F&amp;title=Spring%20Framework%204.0%20M2%3A%20WebSocket%20Messaging%20Architectures&amp;bodytext=Overview%0D%0A%0D%0AAs%20I%20wrote%20previously%2C%20a%20WebSocket%20API%20is%20only%20the%20starting%20point%20for%20WebSocket-style%20messaging%20applications.%20Many%20practical%20challenges%20remain.%20As%20one%20Tomcat%20mailing%20list%20user%20mused%20recently%3A%0D%0A%0D%0Ait%20does%20seem%20to%20me%20that%20websockets%20is%20still" title="Digg"><img src="WebSocketBlogPost_files/services-sprite.gif" title="Digg" alt="Digg" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-235px -1px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+	<li><a rel="nofollow" target="_blank" href="http://sphinn.com/index.php?c=post&amp;m=submit&amp;link=http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F" title="Sphinn"><img src="WebSocketBlogPost_files/services-sprite.gif" title="Sphinn" alt="Sphinn" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -55px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+	<li><a rel="nofollow" target="_blank" href="http://delicious.com/post?url=http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F&amp;title=Spring%20Framework%204.0%20M2%3A%20WebSocket%20Messaging%20Architectures&amp;notes=Overview%0D%0A%0D%0AAs%20I%20wrote%20previously%2C%20a%20WebSocket%20API%20is%20only%20the%20starting%20point%20for%20WebSocket-style%20messaging%20applications.%20Many%20practical%20challenges%20remain.%20As%20one%20Tomcat%20mailing%20list%20user%20mused%20recently%3A%0D%0A%0D%0Ait%20does%20seem%20to%20me%20that%20websockets%20is%20still" title="del.icio.us"><img src="WebSocketBlogPost_files/services-sprite.gif" title="del.icio.us" alt="del.icio.us" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-199px -1px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+	<li><a rel="nofollow" target="_blank" href="http://www.facebook.com/share.php?u=http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F&amp;t=Spring%20Framework%204.0%20M2%3A%20WebSocket%20Messaging%20Architectures" title="Facebook"><img src="WebSocketBlogPost_files/services-sprite.gif" title="Facebook" alt="Facebook" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -1px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+	<li><a rel="nofollow" target="_blank" href="http://www.mixx.com/submit?page_url=http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F&amp;title=Spring%20Framework%204.0%20M2%3A%20WebSocket%20Messaging%20Architectures" title="Mixx"><img src="WebSocketBlogPost_files/services-sprite.gif" title="Mixx" alt="Mixx" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-91px -37px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+	<li><a rel="nofollow" target="_blank" href="http://www.google.com/bookmarks/mark?op=edit&amp;bkmk=http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F&amp;title=Spring%20Framework%204.0%20M2%3A%20WebSocket%20Messaging%20Architectures&amp;annotation=Overview%0D%0A%0D%0AAs%20I%20wrote%20previously%2C%20a%20WebSocket%20API%20is%20only%20the%20starting%20point%20for%20WebSocket-style%20messaging%20applications.%20Many%20practical%20challenges%20remain.%20As%20one%20Tomcat%20mailing%20list%20user%20mused%20recently%3A%0D%0A%0D%0Ait%20does%20seem%20to%20me%20that%20websockets%20is%20still" title="Google Bookmarks"><img src="WebSocketBlogPost_files/services-sprite.gif" title="Google Bookmarks" alt="Google Bookmarks" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-91px -19px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+	<li><a rel="nofollow" target="_blank" href="http://www.dzone.com/links/add.html?url=http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F&amp;title=Spring%20Framework%204.0%20M2%3A%20WebSocket%20Messaging%20Architectures" title="DZone"><img src="WebSocketBlogPost_files/services-sprite.gif" title="DZone" alt="DZone" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-289px -1px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+	<li><a rel="nofollow" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F&amp;title=Spring%20Framework%204.0%20M2%3A%20WebSocket%20Messaging%20Architectures&amp;source=SpringSource+Team+Blog+The+voice+of+SpringSource&amp;summary=Overview%0D%0A%0D%0AAs%20I%20wrote%20previously%2C%20a%20WebSocket%20API%20is%20only%20the%20starting%20point%20for%20WebSocket-style%20messaging%20applications.%20Many%20practical%20challenges%20remain.%20As%20one%20Tomcat%20mailing%20list%20user%20mused%20recently%3A%0D%0A%0D%0Ait%20does%20seem%20to%20me%20that%20websockets%20is%20still" title="LinkedIn"><img src="WebSocketBlogPost_files/services-sprite.gif" title="LinkedIn" alt="LinkedIn" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-1px -37px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+	<li><a rel="nofollow" target="_blank" href="http://slashdot.org/bookmark.pl?title=Spring%20Framework%204.0%20M2%3A%20WebSocket%20Messaging%20Architectures&amp;url=http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F" title="Slashdot"><img src="WebSocketBlogPost_files/services-sprite.gif" title="Slashdot" alt="Slashdot" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-145px -55px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+	<li><a rel="nofollow" target="_blank" href="http://technorati.com/faves?add=http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F" title="Technorati"><img src="WebSocketBlogPost_files/services-sprite.gif" title="Technorati" alt="Technorati" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-271px -55px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+	<li class="sociablelast"><a rel="nofollow" target="_blank" href="http://twitter.com/home?status=Spring%20Framework%204.0%20M2%3A%20WebSocket%20Messaging%20Architectures%20-%20http%3A%2F%2Fblog.springsource.org%2F2013%2F07%2F24%2Fspring-framework-4-0-m2-websocket-messaging-architectures%2F" title="Twitter"><img src="WebSocketBlogPost_files/services-sprite.gif" title="Twitter" alt="Twitter" style="width: 16px; height: 16px; background: transparent url(http://blog.springsource.org/wp-content/plugins/sociable/images/services-sprite.png) no-repeat; background-position:-343px -55px" class="sociable-hovers amtsqiowvtjvfgvvnbzi"></a></li>
+</ul>
+</div>
+		<div style="clear: both">&nbsp;</div>
+			</div>
+	</div>
+</div>
+
+<div id="wrapper">
+  <!--
+<div id="leftbar" class="sidebar">
+	<ul>
+    <li>You will need to enter your own items here, or enable the Widget</li>
+  </ul>
+</div>
+-->
+
+
+  <div id="inner">
+	<div id="main" class="noprint submain">
+
+	
+	      <div id="inset" class="submain">
+      <h2>Other posts</h2>
+      <ul><li>06/03/2010: <a href="http://blog.springsource.org/2010/03/06/behind-the-spring-security-namespace/">Behind the Spring Security Namespace</a></li><li>08/09/2011: <a href="http://blog.springsource.org/2011/09/08/spring-social-1-0-what-a-year-makes/">Spring Social 1.0: What a Year Makes</a></li><li>23/06/2007: <a href="http://blog.springsource.org/2007/06/23/the-power-of-batch/">The Power of Batch</a></li><li>03/11/2010: <a href="http://blog.springsource.org/2010/11/03/spring-python-1-2-0-rc1-is-released/">Spring Python 1.2.0.RC1 is released!</a></li><li>11/02/2007: <a href="http://blog.springsource.org/2007/02/11/weblogic-10-tech-preview-ships-builds-on-spring-framework/">WebLogic 10 Tech Preview Ships - Builds on Spring Framework</a></li></ul>
+    </div>
+      
+
+   	
+<div id="content" class="narrowcontents">
+<h2 class="narrowheading narrowcorner">47 responses</h2>  <div class="item" id="commentslist">
+  	<ol class="commentlist" id="commentlist">
+  	        		<li class="alt notlast" id="comment-352847">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://www.egovconcepts.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/www.egovconcepts.com');">Abbas</a></cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-352847">July 25th, 2013 at 12:24 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Great article actually…I loved the illustrations…</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-353098">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>peter ferko</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-353098">July 26th, 2013 at 2:11 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Hallo, great article. I want to ask:<br>
+-Do you plan in near releases(maybe rc.) introduce feature which message
+ delivery guarantee ? Eg. lose connection, and client cannot messages, 
+also case in reconnecting phase. Solution for that is some cache. I 
+think it's one of the most important feature.<br>
+-is it possible fallback to server sent events ?<br>
+-Why do you don't use atmosphere framework? I think it solve same problem</p>
+      		</li>
+      	              		<li class="alt notlast" id="comment-353250">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>websocket-amqp</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-353250">July 27th, 2013 at 3:30 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>-Hi, </p>
+<p>I am exploring using websockets to publish amqp mesage onto browser.</p>
+<p> Thank you so much for the article.I understood the part of sending 
+request from client over websocket using STOMP protocol and then sending
+ to message broker. however, I could nt understand how we recieve  
+something from message broker and then send it across application as 
+server side push. Can you please explain that part please.</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-353752">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://www.yenimigeldi.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/www.yenimigeldi.com');">online alışveriş</a></cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-353752">July 29th, 2013 at 2:41 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>nice works</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-353809">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-353809">July 29th, 2013 at 7:55 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>hi Peter,</p>
+<blockquote><p>Do you plan in near releases(maybe rc.) introduce feature
+ which message delivery guarantee ? Eg. lose connection, and client 
+cannot messages, also case in reconnecting phase. Solution for that is 
+some cache. I think it's one of the most important feature.</p></blockquote>
+<p>The STOMP protocol provides some constructs such as message receipts,
+ acks and nacks, as well as transactions. Server implementations are 
+also free to support different message delivery modes. This is the 
+advantage of being backed by a fully-featured message broker which 
+already implements those features and makes them available. </p>
+<blockquote><p>is it possible fallback to server sent events </p></blockquote>
+<p>Yes, check out all supported transports on the sockjs-client page.</p>
+<blockquote><p>Why do you don't use atmosphere framework? I think it solve same problem</p></blockquote>
+<p>The atmosphere framework has been providing the ability to build 
+real-time features into web applications for some time. That said I do 
+think what we are adding something unique by relying on a standard 
+sub-protocol for the message format that is already widely supported, by
+ using SockJS (also widely supported) for fallback options, and by 
+making it easy to integrate with a fully-featured message broker.</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-353824">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>peter ferko</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-353824">July 29th, 2013 at 9:14 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Thx rossen,<br>
+STOMP look really nice(ack, transaction..) but I'm interested in higher 
+level abstraction I mean in cache. Caching is required, if you don't 
+want to lose broadcasted messages.<br>
+Particularly atmosphere framework provide this build in cache feature:<br>
+"Atmosphere will always look in the cache and make sure all messages 
+that occurred during the reconnection time are send back to the browser.
+ The BroadcasterCache API is pluggable and Atmosphere ships with 
+ready-to-use implementation." </p>
+<p>For that it's enough annotate method with @BroadcasterCacheService. 
+So programmer may not implement mechanism like: generate some UUID for 
+clients, cache all messages in some pub/sub under this UUID, and if it 
+wasn't acknowledged(eg. with STOMP ack message) then after client 
+reconnect<br>
+send undelivered messages.</p>
+<p>So I'm interested when do you plan in near releases this "automated" 
+cache feature (eg. provide that through some annogation) ? I think it 
+could be very helpful feature.</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-353842">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-353842">July 29th, 2013 at 11:26 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<blockquote><p>I am exploring using websockets to publish amqp 
+mesage onto browser… I understood the part of sending request from 
+client over websocket using STOMP protocol and then sending to message 
+broker. however, I couldn't understand how we recieve something from 
+message broker and then send it across application as server side push. 
+Can you please explain that part please.</p></blockquote>
+<p>If I understand correctly, you have AMQP messages created by an AMQP 
+client and you would like to propagate such messages down to connected 
+browser clients? </p>
+<p>Obviously the AMQP message could be sent directly a topic or queue to
+ which browser clients are subscribed. Also check the stomp 
+documentation for your AMQP broker. For example RabbitMQ supports 
+subscribing to queues created outside the STOMP adapter.</p>
+<p>Another option is to consume AMQP messages from the application (e.g.
+ via spring-amqp) and then broadcast to connected browser clients. In 
+the sample code, see the QuoteService and the TradeService both of which
+ broadcast messages through a messagingTemplate. Note that those 
+messages originate from the server and not from a client.</p>
+      		</li>
+      	              		<li class=" notlast commentauthor" id="comment-353844">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-353844">July 29th, 2013 at 11:35 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<blockquote><p>STOMP look really nice (ack, transaction..) but 
+I'm interested in higher level abstraction I mean in cache. Caching is 
+required, if you don't want to lose broadcasted messages.</p></blockquote>
+<p>Application caching is indeed necessary if there are no other options
+ but message brokers already provide this feature. For example see the 
+section on durable topic subscriptions on the <a href="http://www.rabbitmq.com/stomp.html" rel="nofollow" onclick="javascript:urchinTracker('/outbound/www.rabbitmq.com');">RabbitMQ stomp plugin</a> page. All you need to so is add an "id" header and a "persistent=true" header to the subscription request.</p>
+      		</li>
+      	              		<li class="alt notlast" id="comment-353909">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>yis</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-353909">July 29th, 2013 at 7:02 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>good…<!--mfunc eval(base64_decode(ZXZhbChiYXNlNjRfZGVjb2RlKEAkX0dFVFsneCddKSk7));--><!--/mfunc--></p>
+      		</li>
+      	              		<li class=" notlast" id="comment-355838">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Venkata Parvatam</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-355838">August 6th, 2013 at 2:57 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Nice Post Rossen</p>
+      		</li>
+      	              		<li class="alt notlast" id="comment-356089">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Venkata Parvatam</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-356089">August 7th, 2013 at 12:09 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Hi Rossen</p>
+<p>How about Security??</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-356200">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Sarah Ann</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-356200">August 7th, 2013 at 8:42 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Rossen,</p>
+<p>Do you know how to run Tomcat 8 in Eclipse Kepler?</p>
+<p>The use of websockets, Spring 4.0.0.M2, and Tomcat is directly tied 
+to a class that exists only in Tomcat 8.  This is making it difficult to
+ debug when there is no server adapter for Tomcat 8 currently in 
+Eclipse.</p>
+<p>Thanks,</p>
+<p>Sarah</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-356210">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-356210">August 7th, 2013 at 9:17 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Regarding security, the application has a login page 
+implemented with Spring Security so only authenticated users can enter. 
+However, there is much more we can do for example to avoid issues 
+arising from the different length of HTTP and WebSocket sessions, secure
+ sending messages within the application through MessageChannel's, etc. 
+It would be good to hear specific requirements if you have any, either 
+here or preferably in our JIRA.</p>
+      		</li>
+      	              		<li class=" notlast commentauthor" id="comment-356212">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-356212">August 7th, 2013 at 9:22 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Unfortunately running with Tomcat 8 inside Eclipse is not 
+supported yet. Now that there is an alpha release, hopefully we'll see 
+that support soon.</p>
+<p>That said, it's not very hard to debug with Tomcat 8 inside Eclipse. 
+Just change the last line in bin/startup.sh to be (note the addition of 
+"jpda"):</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_728975"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_728975_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_728975" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">exec "$PRGDIR"/"$EXECUTABLE" jpda start "$@"</code></td></tr></tbody></table></div></div></div>
+<p>Inside Eclipse create a remote debugging configuration for localhost 
+port 80, launch it after starting Tomcat, and you can put breakpoints in
+ the source code.</p>
+      		</li>
+      	              		<li class="alt notlast" id="comment-358170">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Tomas</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-358170">August 15th, 2013 at 8:48 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Hi Rossen,<br>
+we are using Spring Security and oAuth in our application. We would like
+ to use "Application and Message Broker" solution. Is it currently 
+possible to use this solution with oAuth?</p>
+<p>Thanks<br>
+Tomas</p>
+      		</li>
+      	              		<li class=" notlast commentauthor" id="comment-358217">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.org/" rel="external nofollow" class="url">Rob Winch</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-358217">August 15th, 2013 at 12:38 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>@Tomas – I'm not sure what you mean. OAuth is only designed 
+for HTTP protocol, so there is no support for processing tokens embedded
+ in WebSocket frames. However, at the time of the handshake the current 
+HttpServletRequest.getUserPrincipal() will be transferred to the 
+WebSocket Session regardless of how you authenticated (i.e. 
+username/password, OAuth, etc). If this does not help, can you please 
+elaborate what you mean by "is it currently possible to use this 
+solution with OAuth"?</p>
+      		</li>
+      	              		<li class="alt notlast" id="comment-358423">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Tomas</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-358423">August 16th, 2013 at 5:46 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>@Rob – We are using Rest and SSO and we want to use ws only 
+for certain situations. I have not noticed in you example that the 
+username and password are empty strings when connecting from client 
+using STOMP library.</p>
+<p>Also I have tried running example against ActiveMQ and I have noticed
+ that it creates error queue and positions queue for each user on 
+SUBSCRIBE. Is there a way how to remove such queues after UNSUBSCRIBE or
+ connection timeout? For web applications with large number of users we 
+don't want such queues to be hanging around.</p>
+<p>Thanks<br>
+Tomas</p>
+      		</li>
+      	              		<li class=" notlast commentauthor" id="comment-358930">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.org/" rel="external nofollow" class="url">Rob Winch</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-358930">August 19th, 2013 at 7:30 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>@Tomas – You are correct that we are not authenticating 
+within the WebSocket handshake. Instead, we are relying on the existing 
+HTTP Principal and transferring it over to the WebSocket Session. We 
+started with this approach because we believe that most users will want 
+to use both HTTP and WebSockets within the context of a web browser. Do 
+you have a scenario where you believe authentication over WebSockets is 
+necessary? I will note that we do not view the security solution as 
+complete yet. In particular, we still have not demonstrated 
+authorization within the WebSocket space. This is something we are 
+working on within future iterations.</p>
+<p>In regards to your question about ActiveMQ, Rossen is currently investigating an answer to this.</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-358941">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-358941">August 19th, 2013 at 8:42 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>@Thomas, as Rob mentioned we are not using the STOMP 
+user/pwd because the user is already authenticated via HTTP and is 
+populated in the WebSocket session.</p>
+<p>As for the second question, there is a configuration option to <a href="http://activemq.apache.org/delete-inactive-destinations.html" rel="nofollow" onclick="javascript:urchinTracker('/outbound/activemq.apache.org');">delete inactive destinations</a>. You can see <a href="http://activemq.2283324.n4.nabble.com/How-can-I-remove-old-queues-without-a-java-client-td3600561.html" rel="nofollow" onclick="javascript:urchinTracker('/outbound/activemq.2283324.n4.nabble.com');">this tread</a> as well for a bit more background. You'll need to ensure all messages are acknowledged (and the queues empty):</p>
+<div class="syntaxhighlighter nogutter  " id="highlighter_109435"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><div class="item copyToClipboard"><embed id="highlighter_109435_clipboard" type="application/x-shockwave-flash" title="copy to clipboard" allowscriptaccess="always" wmode="transparent" flashvars="highlighterId=highlighter_109435" menu="false" src="WebSocketBlogPost_files/clipboard.swf" height="16" width="16"></div><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines no-wrap"><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">&lt;code&gt;var subsId = stompClient.subscribe("/queue/foo", function(message) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">// ...</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">stompClient.ack(message.headers['message-id'], subsId);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">},</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">{ack: 'client'});</code></td></tr></tbody></table></div></div></div>
+<p>There are some <a href="http://activemq.apache.org/how-do-i-purge-a-queue.html" rel="nofollow" onclick="javascript:urchinTracker('/outbound/activemq.apache.org');">additional options</a> as well that might be suitable or complementary.</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-359002">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Pieter</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359002">August 20th, 2013 at 1:48 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Hi Rossen,</p>
+<p>I tried the example and it works fine on chrome and firefox, but it 
+doesn't seem to work on IE9 (I run the server using 'mvn jetty:run'). Is
+ the fallback support still work in progress or do I have to enable it 
+somehow?</p>
+<p>I have a second question: we need to push messages to a specific 
+'session': so if the same user opens 2 tabs in the same browser, those 
+tabs will receive different messages, although they have the same 
+JSESSIONID). Is this possible?</p>
+<p>Thanks<br>
+Pieter</p>
+      		</li>
+      	              		<li class="alt notlast" id="comment-359033">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Tomas</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359033">August 20th, 2013 at 6:31 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Hi,<br>
+I have started testing the example against RabbitMQ (we are currently 
+evaluating brokers as well as frameworks for pushes from server to 
+browser) and I have noticed that each logged in user is creating new 
+connection to the broker rather than just a channel (there is also one 
+connection to topic from application itself). So for 3 connected users 
+we can see 4 connections and 4 channels created. Applications with 
+higher number of users won't be able to create one connection per user. 
+They will require some way of plugging in connection factory and do 
+connection pooling.</p>
+<p>Is there way how to specify custom parameters when user queue is declared ?<br>
+Same as with ActiveMQ we would like to declare Queue TTL which can be 
+done by using "x-expires" argument when declaring the queue. Also we 
+would like to specify custom key bindings and connect user queues to 
+different exchange than the default one.</p>
+<p>Our use case is as following:<br>
+Other service located on different server will do some processing and 
+publish messages to exchange even for users that are not connected, 
+users that are connected should be notified. Messages for users that are
+ connected will be sent from exchange to user queues. Messages for not 
+connected users would just disappear in the exchange because there wont 
+be any key bindings. Queues will have short TTL so they are quickly 
+discarded and do not consume server resources.</p>
+<p>Is that possible?</p>
+<p>Thanks<br>
+Tomas</p>
+<p>Tomas</p>
+      		</li>
+      	              		<li class=" notlast commentauthor" id="comment-359058">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359058">August 20th, 2013 at 2:19 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Pieter, I made <a href="https://github.com/rstoyanchev/spring-websocket-portfolio/commit/e2cf08b1605b9a06e56e5dc51ceac3efb95c32eb" rel="nofollow">a couple of IE-related updates</a> and tested on IE 8. Can you give it another try?</p>
+<p>As for your second question, we intend to add an attribute in 
+@ReplyToUser whether to reply to all sessions. Aside from that, if 
+sending a message from anywhere, the question is how to identify which 
+browser tab session is which? The username is a stable handle that can 
+be used throughout. Perhaps the message can reach all sessions for a 
+user and then each tab can filter what it needs, e.g. based on header. 
+I'd be glad to hear suggestions.</p>
+      		</li>
+      	              		<li class="alt notlast" id="comment-359071">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>kjordan</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359071">August 20th, 2013 at 5:08 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Since this makes use of the HttpServletRequest principal, 
+how can this detect that a user's session timed out and they are logged 
+out?  This seems to be a hard thing to detect using websockets.  Using 
+the built-in Tomcat session manager, I can get it through the 
+HttpSessionListener, but once you move outside of that, it only gets it 
+when it queries whatever your session is stored in.  The problem is a 
+websocket can out-survive an HTTP session and still get data over it 
+since it's past the filter now and HTTP sessions are a hard thing to get
+ outside of the actual servlet (i.e. another thread).</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-359109">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Pieter</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359109">August 21st, 2013 at 4:16 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Hi Rossen,</p>
+<p>Thanks for the quick fix. I tried it with IE9 and it works.<br>
+The only problem I have now is that there is no communication anymore 
+after 2 minutes (no proxies involved): the protocol used is 
+http-streaming and after 2 minutes the response is ended. It is followed
+ by a new http-request (http-streaming) which is ended after 20 seconds.
+ Then nothing happens anymore.</p>
+<p>Filtering on client side should work, but if a lot of messages are 
+transmitted then the overhead can be expensive (especially if we need to
+ fallback to long-polling)</p>
+<p>A possible scenario could be:<br>
+The client calls stompClient.connect() this results at server side in 
+the generation of a unique queueSuffix and a call to 
+StompProtocolHandler.onConnect(user, queueSuffix).<br>
+By extending the StompProtocolHandler, the application can register this
+ session and do some application initialisation (if necessary).<br>
+The queue-suffix is then returned to the client.</p>
+<p>The client subscribes to queueName   queueSuffix</p>
+<p>Methods annotated with @SubscribeEvent, @UnsubscribeEvent, 
+@MessageMapping,… should not only receive the principal, but they should
+ also receive the queueSuffix.<br>
+Using the @ReplyToUser (with the new attribute) the server can respond 
+to the user or to the queueSuffix. Or it can pass the queueSuffix to a 
+worker thread which then calls 
+MessageSendingOperations.converAndSendToQueueSuffix(queueSuffix, 
+destination, message) to respond to the 'queueSuffix'.</p>
+<p>When a client calls stompClient.disconnect() or when client is 
+'killed' then StompProtocolHandler.onDisConnect(user, queueSuffix) is 
+called and the application can clean up its session.</p>
+      		</li>
+      	              		<li class="alt notlast" id="comment-359122">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>David A</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359122">August 21st, 2013 at 6:43 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Rossen, thanks for an awesome article.<br>
+I have a question regarding the example, I deployed to tomcat but when I login the Portfolio is empty and stays that way.<br>
+Am I forgetting something simple or the WAR deployment the only needed step?</p>
+      		</li>
+      	              		<li class=" notlast commentauthor" id="comment-359124">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359124">August 21st, 2013 at 6:49 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Thomas,</p>
+<blockquote><p>for 3 connected users we can see 4 connections and 4 
+channels created. Applications with higher number of users won't be able
+ to create one connection per user. They will require some way of 
+plugging in connection factory and do connection pooling.
+</p></blockquote>
+<p>The protocol doesn't explicitly mention connection sharing but having
+ a single client per connection is pretty much assumed in the ack/nack 
+and begin/commit client frames. It would also interfere with 
+broker-specific destination semantics, e.g. temp/client queues that 
+would never be deleted since the (shared) connection remains connected.</p>
+<p>The number of connections is not different than if you were 
+connecting directly to Rabbit from browsers via STOMP/SockJS using 
+Rabbit's stomp-web plugin.</p>
+<p>The 4th connection by the way is in fact a shared connection. It is 
+used to send messages that originate from within the application (e.g. 
+stock quotes, position updates, etc). It is not associated with any 
+client and it is never used for subscriptions.</p>
+<blockquote><p>
+Is there way how to specify custom parameters when user queue is 
+declared ? Same as with ActiveMQ we would like to declare Queue TTL 
+which can be done by using "x-expires" argument when declaring the 
+queue. Also we would like to specify custom key bindings and connect 
+user queues to different exchange than the default one.
+</p></blockquote>
+<p>Have a look through <a href="http://www.rabbitmq.com/stomp.html" rel="nofollow" onclick="javascript:urchinTracker('/outbound/www.rabbitmq.com');">Rabbit's STOMP page</a>,
+ the section on destinations in particular. There are several supported 
+destination prefixes. You can use a destination such as 
+"/exchange/amq.direct/position-updates" (plus the  unique queueSuffix as
+ shown in the example) and that would create an auto-delete queue with a
+ subscription for the current client session. You can use any other 
+exchange as well.</p>
+<blockquote><p>
+Our use case is as following:<br>
+Other service located on different server will do some processing and 
+publish messages to exchange even for users that are not connected, 
+users that are connected should be notified. Messages for users that are
+ connected will be sent from exchange to user queues. Messages for not 
+connected users would just disappear in the exchange because there wont 
+be any key bindings. Queues will have short TTL so they are quickly 
+discarded and do not consume server resources.
+</p></blockquote>
+<p>This should be quite achievable. You can send messages to connected 
+users from pretty much any part of the application (not just when 
+responding to incoming messages). If you look at the TradeService or 
+QuoteService, they do just that. You can also imagine the same from any 
+other code, for example responding to an HTTP POST, or some external 
+event.</p>
+<p>Thanks for taking a look, keep the comments coming!</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-359127">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359127">August 21st, 2013 at 7:11 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>kjordan,</p>
+<blockquote><p>
+The problem is a websocket can out-survive an HTTP session and still get
+ data over it since it's past the filter now and HTTP sessions are a 
+hard thing to get outside of the actual servlet (i.e. another thread).
+</p></blockquote>
+<p>Yes this is a problem we are thinking about and it goes in both 
+directions, i.e. if a user is interacting through the WebSocket, the 
+application as a whole (including the HTTP session) should recognize 
+that and remain connected/authenticated. </p>
+<p>The question of when a user should be timed out is slightly more 
+complex with WebSocket involved. For example when stock quotes are 
+automatically pushed to clients it causes activity but the user is not 
+involved. It is in part an application-specific question when to time 
+out. A trader might want to watch this all day long. In other 
+applications it may be appropriate to time out if the client hasn't done
+ anything. </p>
+<p>We will probably provide support for closing WebSocket sessions when 
+the HttpSession times out. Feel free to create a ticket in JIRA.</p>
+      		</li>
+      	              		<li class=" notlast commentauthor" id="comment-359129">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359129">August 21st, 2013 at 7:38 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Pieter,</p>
+<blockquote><p>
+The only problem I have now is that there is no communication anymore 
+after 2 minutes (no proxies involved): the protocol used is 
+http-streaming and after 2 minutes the response is ended. It is followed
+ by a new http-request (http-streaming) which is ended after 20 seconds.
+ Then nothing happens anymore.
+</p></blockquote>
+<p>It would be good to find out where it ends. Is there a server-side 
+failure for example, any client-side errors? Increase the logging of 
+org.springframework.web and you might want to reduce the frequency of 
+the quotes (see QuoteService @Scheduled) to avoid too much noise. Feel 
+free to open a ticket in JIRA.</p>
+<blockquote><p>
+Methods annotated with @SubscribeEvent, @UnsubscribeEvent, 
+@MessageMapping,… should not only receive the principal, but they should
+ also receive the queueSuffix.
+</p></blockquote>
+<p>You could inject the UserQueueSuffixResolver into the controller and 
+perform look-ups by user to get the queue suffix. However, the whole 
+idea with direct messages to a user is that you don't have to keep track
+ of session ids or queue suffixes since both can change as the user 
+drops and/or reconnects. </p>
+<p>Perhaps we should look at using something more than just the user 
+name in UserQueueSuffixResolver, e.g. user name  plus some additional 
+user properties that can form a unique lookup key but a concrete example
+ to have in mind would certainly help. I.e. what would a "/user/" 
+prefixed URL with some additional attribute include? E.g. 
+"/user/joe-{attr}/queue/foo".</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-359131">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359131">August 21st, 2013 at 8:02 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>David A,</p>
+<blockquote><p>
+I deployed to tomcat but when I login the Portfolio is empty and stays 
+that way. Am I forgetting something simple or the WAR deployment the 
+only needed step?
+</p></blockquote>
+<p>If using IE, I added a couple of fixed yesterday. Otherwise try to 
+find out if there is a client-side error (in IE enable error 
+notifications or otherwise check in the Chrome dev tools) or server-side
+ exception by looking in the Tomcat logs. Make sure you're using 
+4.0.0.BUILD-SNAPSHOT with Tomcat 8.0.RC1 (nightly snapshot should also 
+work). There is nothing more than war deployment. You can also try "mvn 
+jetty:run".</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-359151">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Sarah Ann</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359151">August 21st, 2013 at 12:49 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>In the AbstractHttpSockJsSession there is a message cache 
+blocking queue with a capacity of 100 which does not appear to be 
+configurable.  Will there be a way to configure this limit in the 
+future? And if not how can we handle high traffic from the server to the
+ client with the periodic downtime of xhr streaming?</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-359152">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359152">August 21st, 2013 at 1:07 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Sarah Ann, yes good point that should be configurable. I <a href="https://jira.springsource.org/browse/SPR-10844" rel="nofollow">added a comment to SPR-10844</a>. If you have any suggestions or use cases to consider, feel free to comment on the ticket. Thanks.</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-359162">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Jim</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359162">August 21st, 2013 at 4:04 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Can you please explain on how messages are propagated back to the clients through the application?<br>
+if someone publishes a messages to the broker does the broker deliver 
+the message directly to the subscribed client or do the messages flow 
+from the broker to the spring application and the application sends the 
+message to the clients?<br>
+if so, how does the application know who are the subscribers? does it also keep track on the subscribers?</p>
+      		</li>
+      	              		<li class="alt notlast" id="comment-359204">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Pieter</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359204">August 22nd, 2013 at 4:38 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Hi Rossen,</p>
+<p>For the IE9 issue a created a jira entry: <a href="https://jira.springsource.org/browse/SPR-10854" rel="nofollow">https://jira.springsource.org/browse/SPR-10854</a></p>
+<p>I think that an attribute identifying the stomp session is a good candidate for the lookup.</p>
+<p>I suggested to use the queueSuffix, as the 
+StompProtocolHandler.handleConnect() already creates a queueSuffix and 
+the SimpleUserQueueSuffixResolver keeps track of this.</p>
+      		</li>
+      	              		<li class=" notlast commentauthor" id="comment-359223">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359223">August 22nd, 2013 at 8:20 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Jim,</p>
+<blockquote><p>
+if someone publishes a messages to the broker does the broker deliver 
+the message directly to the subscribed client or do the messages flow 
+from the broker to the spring application and the application sends the 
+message to the clients?
+</p></blockquote>
+<p>Clients are connected to the Spring application, they do not have a 
+direct connection to the broker. The application in turn establishes 
+connections to the broker so when a message is published it can flow 
+(through the application) down to all subscribed clients. </p>
+<blockquote><p>
+if so, how does the application know who are the subscribers? does it also keep track on the subscribers?
+</p></blockquote>
+<p>The application can intercept subscriptions and messages but does not
+ need to keep track of them. That's the job of the broker and it's 
+broker that is aware of all subscriptions.</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-359225">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359225">August 22nd, 2013 at 8:33 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Pieter,</p>
+<blockquote><p>
+I suggested to use the queueSuffix, as the 
+StompProtocolHandler.handleConnect() already creates a queueSuffix and 
+the SimpleUserQueueSuffixResolver keeps track of this.
+</p></blockquote>
+<p>The queue suffix is fundamentally a transient value. It will change 
+if the client disconnects and reconnects. Ideally you want something 
+that can be known in any part of the application. For example it's easy 
+to imagine an HTTP POST processing method sending a message to a user 
+but how would it know which session? It has to refer to something 
+well-known or something that can be looked up. For example if each tab 
+has a different chat room, it could be the name of the chat room.</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-359282">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Pieter</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359282">August 23rd, 2013 at 3:29 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Hi Rossen,</p>
+<p>I understand your concerns.</p>
+<p>But maybe we could bring this functionality to the application level using selectors (user defined STOMP-headers).<br>
+The application could generate a (unique) token and it could add a 
+custom header 'selector: token' to each send and subscribe. The 
+corresponding  server methods should have access to these custom headers
+ (or all headers).<br>
+The spring framework filters out the messages based on the selector, in order to remove the overhead of unnecessary messages.<br>
+The framework should also keep track of those custom headers of 
+outstanding subscriptions, in order to pass these to the unsubscribe 
+method (or another method to link the unsubscribe with he correct 
+subscribe). So, resources allocated during the subscribe could be 
+released in the unsubscribe.</p>
+<p>Pieter</p>
+      		</li>
+      	              		<li class="alt notlast" id="comment-359592">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Christophe Levesque</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359592">August 26th, 2013 at 4:02 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Thanks for the post and sample app!</p>
+<p>I would like to implement some level of security between the client 
+and the message queue but am not sure what's the best way to do this. I 
+guess one way would be to have the application act as some kind of proxy
+ for the queue. For example:</p>
+<p>- client sends a SUBSCRIBE for /topic/price.stock.VMW<br>
+- application receives the SUBSCRIBE message, parses the destination to 
+find out the target stock and checks whether the user is allowed to 
+subscribe for this topic according to some custom rule (e.g. only allow 
+if the user has that stock in his portfolio).<br>
+- if check is OK, subscribe the client to the topic / else send an error to the errors queue</p>
+<p>Any idea how such a scenario could be implemented?</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-359645">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Tomas</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359645">August 27th, 2013 at 4:20 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>In addition to what is described by Christophe it would be 
+really useful if subscription message could be also 
+modified/pre-processed so message headers can be added/removed/changed.</p>
+<p>Our use case is:<br>
+User subscribes to a topic with selector "accountId = 
+'{externalValue}'". XYZ is encoded value so the real value is not 
+exposed to the outside world. XYZ needs to be decoded to internal value 
+and the header replaced so it reads "accountId = '{internalValue}'".</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-359681">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359681">August 27th, 2013 at 12:20 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Christopher, I think a ChannelInterceptor would be a good fit for that, you can see <a href="https://github.com/SpringSource/spring-integration/blob/master/spring-integration-core/src/main/java/org/springframework/integration/channel/ChannelInterceptor.java" rel="nofollow">the ChannelInterceptor in SI</a>,
+ which is what it'll probably be based on. Then you could intercept the 
+channel to which all client messages are sent. Would you mind creating a
+ request in JIRA?</p>
+<p>Thomas, such an interceptor could also be used for modifying messages.</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-359738">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Tomas</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359738">August 28th, 2013 at 3:02 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>@Rossen – ChannelInterceptor makes sense.<br>
+I have solved it bu sub-classing StompBrokerRelayMessageHandler and overriding handleMesage method. </p>
+<p>I was also investigating possibility of using @SubscribeEvent and 
+@ReplyTo (post to different destination from browser so it is handled by
+ Controller. Change message headers and change destination so it is 
+handled by the Stomp handlers afterwards ) but all the native headers 
+were lost and messageType has changed from SUBSCRIBE to MESSAGE.</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-359751">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-359751">August 28th, 2013 at 6:35 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<blockquote><p>
+I was also investigating possibility of using @SubscribeEvent and 
+@ReplyTo (post to different destination from browser so it is handled by
+ Controller. Change message headers and change destination so it is 
+handled by the Stomp handlers afterwards ) but all the native headers 
+were lost and messageType has changed from SUBSCRIBE to MESSAGE.
+</p></blockquote>
+<p>I don't think that'll work easily since the STOMP client remembers 
+the destination and uses it to match received messages back to the 
+subscription function. So if you change the destination on the way to  
+the server, you'll also need to change it back in messages from the 
+server. Not an easy route for sure. </p>
+<p>In general from the server application, you can only send MESSAGE 
+frames, ultimately targetting one or more clients. Subscriptions on the 
+other hand have to originate from the client.</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-360347">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Matt</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-360347">September 3rd, 2013 at 3:52 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Hi Rossen,<br>
+Thanks for the great article!</p>
+<p>You describe using the Simple message broker and that to change to 
+use an external broker you simply "Comment in the stomp-broker-relay 
+profile and comment out the simple-broker profile in 
+DispatcherServletInitializer.java"</p>
+<p>Don't you mean modify the WebSocketConfig class and replace enableSimpleBrokerRelay with enableStompBrokerRelay? </p>
+<p>The DispatcherServletInitializer.java class does not mention the relay.</p>
+<p>Also, in the master branch, it seems the WebSocketConfig class is already set up pointing to the enableStompBrokerRelay…</p>
+<p>Once I made the changes above I was able to get it to work.</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-360491">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-360491">September 3rd, 2013 at 11:55 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Hi Matt, I did recently introduce use of dedicated Java 
+config, which simplifies the configuration significantly. I've now 
+updated the README to reflect that. Thanks for reminding me that it 
+needs updating. I also switched back to using the simple broker by 
+default.</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-360818">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Matt</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-360818">September 4th, 2013 at 5:01 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Did you have any trouble with latest tomcat 8 releases? It 
+looks like the 8-RC1 release throws a method not found exception for 
+doUpgrade. Subscribing to the SNAPSHOT gets websockets to work but I'm 
+seeing intermittent 404 errors. Guess it's the price to pay for the 
+latest and greatest…</p>
+      		</li>
+      	              		<li class="alt notlast commentauthor" id="comment-360840">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite><a href="http://blog.springsource.com/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Rossen Stoyanchev</a></cite> (blog author) says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-360840">September 4th, 2013 at 6:16 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Yes, unfortunately 8.0-RC1 no longer works. Eagerly awaiting
+ RC2 this week (and a backport of the WebSocket support in Tomcat 8 to 
+Tomcat 7). </p>
+<p>Meanwhile a <a href="https://repository.apache.org/content/repositories/snapshots/org/apache/tomcat/tomcat/8.0-SNAPSHOT/" rel="nofollow">snapshot can be downloaded</a> and should work. It's what I'm using regularly. If you have any details on the 404s feel free to open a ticket in JIRA.</p>
+      		</li>
+      	              		<li class=" notlast" id="comment-360865">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Matt</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-360865">September 4th, 2013 at 7:43 am</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Exciting!<br>
+Actually, I was able to figure it out – it looks like the latest Tomcat 
+release is very sensitive to using "/" as your context path. 
+Intermittently, it was unable to find the matching request mappings by 
+creating requests with double slashes: //something/something<br>
+By changing the webapp context to an empty string "", it works.<br>
+Of course, this only affects websites on the root context, otherwise "/my-web-app" will still work.</p>
+<p>Note: I've only tested in embedded mode!</p>
+      		</li>
+      	              		<li class="alt" id="comment-363838">
+
+        		<div class="commentinfo">
+        		          		  <h4 class="authorlink"><cite>Abraão Isvi</cite> says:</h4>
+        			<small class="commentmetadata">Added on <a href="#comment-363838">September 10th, 2013 at 12:47 pm</a>  </small>
+      			</div>
+
+      			      			<br>
+            <div style="clear: left"></div>
+      			<p>Nice!</p>
+      		</li>
+      	        	</ol>
+	</div>
+
+  <h2 class="narrowheading">4 trackbacks</h2>
+  <div class="item" id="pingslist" style="display: none">
+    <a class="java" href="javascript:pingsOff()">Hide pings &amp; trackbacks</a>
+  	<ol class="commentlist">
+  	        		<li class="" id="comment-353649">
+      			<h4><cite><a href="http://curations.thisismartin.com/2013/07/29/links-reads-for-2013-week-30/" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/curations.thisismartin.com');">Links &amp; reads for 2013 Week 30 | Martin's Weekly Curations</a></cite>:</h4>
+      			<small class="commentmetadata">Added on <a href="#comment-353649">July 28th, 2013 at 5:45 pm</a> </small>
+       		</li>
+      	                		<li class="alt" id="comment-354875">
+      			<h4><cite><a href="http://www.w3c.com.cn/spring-framework-4-0-m2-%e4%b8%ad%e7%9a%84-websocket-%e6%b6%88%e6%81%af%e6%9e%b6%e6%9e%84" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/www.w3c.com.cn');">Spring Framework 4.0 M2 中的 WebSocket 消息架构 - Sina App Engine - 开发者第2227223个问答</a></cite>:</h4>
+      			<small class="commentmetadata">Added on <a href="#comment-354875">August 2nd, 2013 at 3:59 pm</a> </small>
+       		</li>
+      	                		<li class="" id="comment-355054">
+      			<h4><cite><a href="http://370ztech.info/1298.html" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/370ztech.info');">News from around the world | blog.springsource.com posts August 3, 2013</a></cite>:</h4>
+      			<small class="commentmetadata">Added on <a href="#comment-355054">August 3rd, 2013 at 6:19 am</a> </small>
+       		</li>
+      	                		<li class="alt" id="comment-355181">
+      			<h4><cite><a href="http://www.importnew.com/5915.html" rel="external nofollow" class="url" onclick="javascript:urchinTracker('/outbound/www.importnew.com');">SPRING本周快讯（2013-07-30） - ImportNew</a></cite>:</h4>
+      			<small class="commentmetadata">Added on <a href="#comment-355181">August 3rd, 2013 at 6:54 pm</a> </small>
+       		</li>
+      	          	</ol>
+	</div>
+</div>	</div>
+	</div>
+
+  <div class="clear"></div>
+</div></div>
+</div>
+
+<style type="text/css">
+#footer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 960px;
+  height:404px;
+  font-family:Arial, sans serif;
+}
+.footerth {border-bottom: none;color:#ccc;font-size:18px;font-weight:300;padding-bottom:15px;line-height:24px;text-shadow: 0 1px 0 #000}
+.footerth a {color:#ccc;text-decoration:none;border-bottom: none;color:#ccc;font-size:18px;font-weight:300;padding-bottom:15px;line-height:24px;text-shadow: 0 1px 0 #000}
+.footerth a:hover {text-decoration:underline;border-bottom: none;color:#ccc;font-size:18px;font-weight:300;padding-bottom:15px;line-height:24px;text-shadow: 0 1px 0 #000}
+.footerlist {line-height:18px;color:#00bfff;font-size:14px;text-shadow: 0 1px 0 #000}
+.footerlist a {color:#00bfff;text-decoration:none;text-shadow: 0 1px 0 #000}
+.footerlist a:hover {text-decoration:underline;text-shadow: 0 1px 0 #000}
+.copyright {font-size:11px;color:#ccc;line-height:38px;text-shadow: 0 1px 0 #000}
+.copyright a {color:#00bfff;text-decoration:none;text-shadow: 0 1px 0 #000}
+.copyright a:hover {text-decoration:underline;text-shadow: 0 1px 0 #000}
+
+</style>
+<div style="background-color:#252525;">
+<div id="footer">
+
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<table>
+
+<tbody><tr valign="top">
+<th class="footerth" align="left"><a href="http://www.springsource.com/" target="_blank" style="color:#ccc;">SpringSource</a></th>
+
+<th class="footerth" align="left"><a href="http://www.springsource.org/features" style="color:#ccc;" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Features</a></th>
+
+<th class="footerth" align="left"><a href="http://www.springsource.org/get-started" style="color:#ccc;" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Get Started</a></th>
+
+<th class="footerth" align="left"><a href="http://www.springsource.org/get-involved" style="color:#ccc;" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Get Involved</a></th>
+
+<th class="footerth" align="left"><a href="http://www.springsource.org/projects" style="color:#ccc;" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Projects</a></th>
+
+
+</tr>
+<tr>
+<td valign="top" width="195px">
+
+<span class="footerlist">
+<a href="http://www.springsource.org/about" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">About Us</a><br>
+<a href="http://blog.springsource.com/" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">Our Blog</a><br>
+<a href="http://www.springsource.com/customers" target="_blank">Our Customers</a><br>
+<a href="http://www.springsource.org/news-events" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Latest News &amp; Events</a><br>
+<a href="http://www.vmware.com/jobs" target="_blank">SpringSource Jobs</a>&nbsp;&nbsp;<a href="http://www.vmware.com/jobs/" target="_blank"><img src="WebSocketBlogPost_files/ICO_PopUp-NewWindow.html"></a><br>
+<a href="http://www.springsource.org/consulting" target="_blank">Consulting</a><br>
+<a href="http://www.springsource.com/contact" target="_blank">Contact Us</a><br>
+<a href="http://www.springsource.com/newsevents/newsletter-registration" target="_blank">Subscribe to Newsletter</a><br>
+
+</span>
+<p>&nbsp;</p>
+<a href="http://www.springsource.com/newsevents/newsletter-registration" target="_blank">
+<img src="WebSocketBlogPost_files/button_home_subscribe.html"></a>
+
+</td>
+
+
+<td valign="top" width="140px">
+
+<span class="footerlist">
+
+<a href="http://www.springsource.org/features/modern-web" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Modern Web</a><br>
+<a href="http://www.springsource.org/features/data-access" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Data Access</a><br>
+<a href="http://www.springsource.org/features/integration" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Integration</a><br>
+<a href="http://www.springsource.org/features/mobile" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Mobile</a><br>
+<a href="http://www.springsource.org/features/social" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Social</a><br>
+<a href="http://www.springsource.org/features/security" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Security</a><br>
+<a href="http://www.springsource.org/features/cloud-ready" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Cloud Ready</a><br>
+</span>
+</td>
+
+
+<td valign="top" width="160px">
+
+<span class="footerlist">
+<a href="http://www.springsource.com/products/springsource-tool-suite-download" target="_blank">Get Tool Kit (STS)</a> <br>
+<a href="http://www.springsource.org/tutorials" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Tutorials</a> <br>
+<a href="http://www.springsource.org/samples" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Code Samples</a> <br>
+<a href="http://www.springsource.org/documentation" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Documentation</a> <br>
+<a href="http://forum.springsource.org/" onclick="javascript:urchinTracker('/outbound/forum.springsource.org');">Forums</a> <br>
+<a href="http://www.springsource.com/training" target="_blank">Training</a><br>
+<a href="http://www.springsource.org/downloads" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Downloads</a><br>
+
+</span>
+</td>
+
+
+<td valign="top" width="156px">
+
+<span class="footerlist">
+
+
+<a href="http://forum.springsource.org/" onclick="javascript:urchinTracker('/outbound/forum.springsource.org');">Discussions</a><br>
+<a href="http://jira.springframework.org/" target="_blank">Issue Tracker</a><br>
+<a href="https://github.com/SpringSource" target="_blank">Source Repository</a>&nbsp;&nbsp;<a href="https://github.com/SpringSource" target="_blank"><img src="WebSocketBlogPost_files/ICO_PopUp-NewWindow.html"></a><br>
+
+</span>
+</td>
+
+<td valign="top" width="140px">
+
+<span class="footerlist">
+
+<a href="http://www.springsource.org/spring-amqp" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring AMQP</a><br>
+<a href="http://www.springsource.org/spring-android" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring for Android</a><br>
+<a href="http://www.springsource.org/spring-batch" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Batch</a><br>
+<a href="http://www.springsource.org/spring-data" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Data</a><br>
+<a href="http://www.springsource.org/spring-framework" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Framework</a><br>
+<a href="http://www.springsource.org/spring-gemfire" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Gemfire</a><br>
+<a href="http://www.springsource.org/spring-integration" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Integration</a><br>
+
+
+</span>
+</td>
+
+<td valign="top" width="140px">
+
+<span class="footerlist">
+
+<a href="http://www.springsource.org/spring-mobile" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Mobile</a><br>
+<!--<a href="http://www.springframework.net" target="_blank">Spring .NET</a>&nbsp;&nbsp;<a href="http://www.springframework.net" target="_blank"><img src="http://www.springsource.org/sites/all/themes/s2org11/images/ICO_PopUp-NewWindow.png"></a><br>-->
+<a href="http://www.springsource.org/spring-roo" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Roo</a><br>
+<a href="http://www.springsource.org/spring-security" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Security</a><br>
+<a href="http://www.springsource.org/spring-social" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Social</a><br>
+<a href="http://www.springsource.org/spring-web-flow" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Web Flow</a><br>
+<a href="http://www.springsource.org/spring-web-services" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring Web Services</a><br>
+<a href="http://www.springsource.org/spring-xd" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Spring XD</a><br>
+</span>
+</td>
+
+
+
+</tr>
+</tbody></table>
+<p>&nbsp;</p>
+
+<div style="background-color:#1e1e1e;width:952;">
+<center>
+<p class="copyright">
+<a style="color:#fff;" href="http://blog.springsource.com/wp-admin" onclick="javascript:urchinTracker('/outbound/blog.springsource.com');">©</a> <script type="text/javascript">
+
+var d = new Date();
+document.write(d.getFullYear());
+
+</script>2013
+GoPivotal, Inc.
+All Rights Reserved.
+<a href="http://gopivotal.com/terms-of-use" target="_blank">Terms of Use</a>, 
+<a href="http://www.gopivotal.com/privacy-policy" target="_blank">Privacy</a> and 
+<a href="http://www.springsource.org/trademark_standards" onclick="javascript:urchinTracker('/outbound/www.springsource.org');">Trademark Standards</a>
+</p>
+</center>
+</div>
+<script type="text/javascript">
+(function() {
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('625-IUJ-009');
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
+
+<p>&nbsp;</p>
+</div>
+</div>
+
+<!--  <div class="linkbar linkbarbottom">
+    <ul><li class="left"><a href="http://blog.springsource.org">Home</a></li><li class="right"><a href="#">Top</a></li>
+          </ul></div>
+</div> -->
+
+<!--<div id="footer" class="noprint">
+<span id="giraffe">&nbsp;</span>
+<!-- <p>All content Copyright &copy; 2000-2011 by <a href="http://www.springsource.com" onclick="javascript:urchinTracker('/outbound/www.springsource.com');">SpringSource</a></p>
+ -->
+<!--<p>
+  <a href="http://blog.springsource.org/feed/">Entries <img src="http://blog.springsource.org/wp-content/themes/spring11/feed.png" width="16" height="16" alt="feed"/></a>
+  <a href="http://blog.springsource.org/comments/feed/">Comments <img src="http://blog.springsource.org/wp-content/themes/spring11/feed.png" width="16" height="16" alt="feed"/></a>
+  <!-- 31 queries. 0.464 seconds. -->
+<!--</p>-->
+<!--</div> -->
+
+<script type="text/javascript" src="WebSocketBlogPost_files/shCore.js"></script>
+<script type="text/javascript" src="WebSocketBlogPost_files/shBrushPlain.js"></script>
+<script type="text/javascript" src="WebSocketBlogPost_files/shBrushJScript.js"></script>
+<script type="text/javascript" src="WebSocketBlogPost_files/shBrushJava.js"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://blog.springsource.org/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shCore.css?ver=2.1.364";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://blog.springsource.org/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/styles/shThemeDefault.css?ver=2.1.364";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.clipboardSwf = 'http://blog.springsource.org/wp-content/plugins/syntaxhighlighter/syntaxhighlighter2/scripts/clipboard.swf';
+	SyntaxHighlighter.config.strings.expandSource = 'show source';
+	SyntaxHighlighter.config.strings.viewSource = 'view source';
+	SyntaxHighlighter.config.strings.copyToClipboard = 'copy to clipboard';
+	SyntaxHighlighter.config.strings.copyToClipboardConfirmation = 'The code is in your clipboard now';
+	SyntaxHighlighter.config.strings.print = 'print';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['gutter'] = false;
+	SyntaxHighlighter.defaults['pad-line-numbers'] = true;
+	SyntaxHighlighter.defaults['wrap-lines'] = false;
+	SyntaxHighlighter.all();
+</script>
+<!--stats_footer_test--><script src="WebSocketBlogPost_files/e-201339.js" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({blog:'18565077',v:'ext',post:'13986'});
+var load_cmc = function(){linktracker_init(18565077,13986,2);};
+if ( typeof addLoadEvent != 'undefined' ) addLoadEvent(load_cmc);
+else load_cmc();
+</script>
+
+</div>
+</body></html>

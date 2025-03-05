@@ -1,0 +1,90 @@
+/* .view-user-submitted-story .view-display-id-page_1 */
+.views-row {
+  position: relative;
+  height: 400px;
+}
+
+.views-field-field-image-fid {
+  position: absolute;
+}
+
+.views-field-title {
+  position: relative;
+  left: 230px;
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+.views-field-field-company-name-value {
+  position: relative;
+  left: 230px;
+/*  top: 7%; */
+}
+
+.views-field-field-deployment-platform-value {
+  position: relative;
+  left: 230px;
+/*  top: 12%; */
+}
+
+.views-field-field-operating-system-value {
+  position: relative;
+  left: 230px;
+/*  top: 18%; */
+}
+
+.views-field-tid .field-content,
+.views-field-tid-1 .field-content {
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+/* for Technology taxonomy */
+.views-field-tid {
+  position: relative;
+  left: 230px;
+/*  top: 24%; */
+}
+
+.views-field-field-other-technology-value {
+  position: relative;
+  left: 230px;
+/*  top: 30%; */
+}
+
+/* for Product taxonomy */
+.views-field-tid-1 {
+  position: relative;
+  left: 230px;
+/*  top: 36%; */
+}
+
+.views-field-field-other-products-value {
+  position: relative;
+  left: 230px;
+/*  top: 42%; */
+}
+
+.views-field-field-use-case-type-value {
+  position: relative;
+  left: 230px;
+/*  top: 48%; */
+}
+
+.views-field-field-other-use-case-type-value {
+  position: relative;
+  left: 230px;
+/*  top: 52%; */
+}
+
+.views-field-body {
+  position: relative;
+/*  top: 56%; */
+  left: 230px;
+  -o-text-overflow: ellipsis;   /* Opera */
+  text-overflow:    ellipsis;   /* IE, Safari (WebKit) */
+  overflow:hidden;              /* don't show excess chars */
+/*  white-space:nowrap;   */        /* force single line */
+  height: 110px;                 /* fixed width */
+  width: 90%; 
+}

@@ -1,0 +1,204 @@
+Today marks the third milestone release of the <a href="http://springframework.org/javaconfig">Spring Java Configuration project</a> (JavaConfig for short).  The release contains numerous bug fixes and new features - I'll highlight a few of the most interesting changes below, but first let me give a quick refresher as to what JavaConfig is all about.
+
+If you have any experience with Spring, the following snippet of XML configuration will likely be familiar.  Let's assume we're looking at a file named <span style="font-family:courier">application-config.xml</span>:
+
+[code lang="xml"]
+<beans>
+    <bean id="orderService" class="com.acme.OrderService"/>
+        <constructor-arg ref="orderRepository"/>
+    </bean>
+    <bean id="orderRepository" class="com.acme.OrderRepository"/>
+        <constructor-arg ref="dataSource"/>
+    </bean>
+</beans>
+[/code]
+
+Of course, this XML configuration will ultimately serve as a set of instructions for a Spring <span style="font-family:courier">ApplicationContext</span> to instantiate and configure our beans:
+
+[code lang="java"]
+ApplicationContext ctx = new ClassPathXmlApplicationContext("application-config.xml");
+OrderService orderService = (OrderService) ctx.getBean("orderService");
+[/code]
+
+JavaConfig simply provides another mechanism to configure the Spring IoC container, this time in pure Java rather than requiring XML to get the job done.  Let's port the configuration above to JavaConfig:
+
+[code lang="java"]
+@Configuration
+public class ApplicationConfig {
+
+    public @Bean OrderService orderService() {
+        return new OrderService(orderRepository());
+    }
+
+    public @Bean OrderRepository orderRepository() {
+        return new OrderRepository(dataSource());
+    }
+
+    public @Bean DataSource dataSource() {
+        // instantiate and return an new DataSource ...
+    }
+}
+[/code]
+
+Like the original XML file, this class is simply a set of instructions as to how to construct our application's various components.  We'll supply these instructions to an <span style="font-family:courier">ApplicationContext</span> implementation specifically designed to read and execute Java-based configuration instructions:
+
+[code lang="java"]
+JavaConfigApplicationContext ctx = new JavaConfigApplicationContext(ApplicationConfig.class);
+OrderService orderService = ctx.getBean(OrderService.class);
+[/code]
+
+And that's it!  Well, almost.  Of course there's a lot more to JavaConfig, but for the most part the feature set is 1:1 with what's available in Spring's XML config.  For full details on how to use JavaConfig, take a look at the <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/reference/html/">reference documentation</a>.  If you're new to JavaConfig, be sure to check out the <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/reference/html/quick-start.html">quick start</a> section.
+
+At any rate, the benefits of JavaConfig are straightforward:
+<ul>
+  <li>It's pure Java, so there's no XML required</li>
+  <li>You get all the benefits of object-orientation in your configuration code</li>
+  <li>It's type-safe and refactoring-friendly</li>
+  <li>You still get the full power of the core Spring IoC container</li>
+</ul>
+
+With that in mind, let's take a look at what's changed in the M3 release:
+
+<h5><span style="font-family:courier">AnnotationApplicationContext</span> deprecated</h5>
+
+Hardly a 'new feature', but this change is important to mention because much of what I'll discuss below revolves around <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/apidocs/org/springframework/config/java/context/JavaConfigApplicationContext.html"><span style="font-family:courier">JavaConfigApplicationContext</span></a>, the successor to <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/apidocs/org/springframework/config/java/context/AnnotationApplicationContext.html"><span style="font-family:courier">AnnotationApplicationContext</span></a>.  <em>Why was this change made?</em>  <span style="font-family:courier">AnnotationApplicationContext</span> posed a significant naming collision with Spring 2.5's <em>Annotation-Driven Injection</em> facility.  JavaConfig presents a different approach to configuration than Annotation-Driven Injection, so we wanted to make this distinction clear by renaming the class entirely.  <span style="font-family:courier">AnnotationApplicationContext</span> will remain deprecated until the 1.0.0.rc1 release, at which point it will be removed permanently.
+
+<h5>Type-safety improvements</h5>
+
+While the above-mentioned <span style="font-family:courier">JavaConfigApplicationContext</span> behaves largely like it's predecessor, it also introduces type-safe <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/apidocs/org/springframework/config/java/context/JavaConfigApplicationContext.html#getBean(java.lang.Class)"><span style="font-family:courier">getBean()</span></a> methods that take full advantage of generics.  The following code now works (and from this point forward is the preferred approach to use with JavaConfig):
+
+[code lang="java"]
+JavaConfigApplicationContext context = new JavaConfigApplicationContext(AppConfig.class);
+OrderService orderService = context.getBean(OrderService.class);
+[/code]
+
+Look ma, no casting! And no string-based lookups, either.  Of course, this will beg the question, <em>"what if two or more objects of type <span style="font-family:courier">OrderService</span> have been configured in the context?"</em>  This is a situtation that could easily occur, and there are multiple ways to address it.  For brevity in this post, I'll simply refer those interested to take a look at the <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/reference/html/creating-bean-definitions.html#typesafe-getbean">disambiguation options</a> section of the reference documentation.
+
+These type-safe getBean() methods have also been fitted onto the <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/apidocs/org/springframework/config/java/support/ConfigurationSupport.html"><span style="font-family:courier">ConfigurationSupport</span></a> base class, such that the following is possible:
+
+[code lang="java"]
+@Configuration
+public class ApplicationConfig extends ConfigurationSupport {
+    public @Bean OrderRepository orderRepository() {
+        return new JdbcOrderRepository(this.getBean(DataSource.class));
+    }
+}
+[/code]
+
+<h5>Major documentation update</h5>
+
+We've worked hard to bring JavaConfig's documentation up to par with the quality for which Spring is famous.  As linked above, the reference documentation is available in <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/reference/html">HTML</a> as well as <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/reference/pdf/">PDF</a> formats.  Note that this documentation is also packaged as part of the regular <a href="https://sourceforge.net/project/showfiles.php?group_id=73357&amp;package_id=213222&amp;release_id=587200">zip distributions</a> available via SourceForge.  As with all the additions in M3, your feedback on the documentation will help improve it as the project moves forward to its 1.0 GA release.
+
+<h5>Support for JavaConfig in the web tier</h5>
+
+Prior to this release, JavaConfig had to be 'bootstrapped' via XML in order to be used in conjunction with Spring's <span style="font-family:courier">ContextLoaderListener</span> and <span style="font-family:courier">DispatcherServlet</span> classes.  To address this limitation, <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/apidocs/org/springframework/config/java/context/JavaConfigWebApplicationContext.html"><span style="font-family:courier">JavaConfigWebApplicationContext</span></a> has been added.  Simply specify this class as the <span style="font-family:courier">contextClass</span> parameter in your <span style="font-family:courier">web.xml</span>, and you can use your <span style="font-family:courier">@Configuration</span> classes directly:
+
+[code lang="xml"]
+<web-app>
+    <!-- Bootstrap the root application context as usual using ContextLoaderListener -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!-- Configure ContextLoaderListener to use JavaConfigWebApplicationContext
+         instead of the default XmlWebApplicationContext -->
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.config.java.JavaConfigWebApplicationContext</param-value>
+    </context-param>
+    <!-- Configuration locations must consist of one or more comma- or space-delimited
+         fully-qualified @Configuration classes -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>example.RootApplicationConfig</param-value>
+    </context-param>
+    <!-- Declare a Spring MVC DispatcherServlet as usual -->
+    <servlet>
+        <servlet-name>dispatcher-servlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- Configure DispatcherServlet to use JavaConfigWebApplicationContext
+             instead of the default XmlWebApplicationContext -->
+        <init-param>
+            <param-name>contextClass</param-name>
+            <param-value>org.springframework.config.java.context.JavaConfigWebApplicationContext</param-value>
+        </init-param>
+        <!-- Again, config locations must consist of one or more comma- or space-delimited
+             and fully-qualified @Configuration classes -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>example.web.WebBeansConfig</param-value>
+        </init-param>
+    </servlet>
+</web-app>
+[/code]
+
+In practice, it is likely that many folks will want to continue using a combination of XML and JavaConfig, especially in web applications.  This approach still works just fine (see <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/reference/html/combining-config-approaches.html">combining configuration approaches</a>), but it was important to the team that we offer users a truly "XML-free" approach if they so desire it.  This change rounds out that possibility.
+
+
+<h5>Modularity improvements with new <span style="font-family:courier">@Import</span> annotation</h5>
+
+Much like Spring XML config's &lt;import/&gt; element, it is now possible to have one <span style="font-family:courier">@Configuration</span> class import another (and thus all its bean definitions):
+
+[code lang="java"]
+@Configuration
+public class FooConfig {
+    public @Bean Foo foo() { ... }
+    public @Bean Bar bar() { ... }
+}
+
+@Import(FooConfig.class)
+@Configuration
+public class ApplicationConfig {
+    public @Bean ServiceA serviceA() { ... }
+}
+
+JavaConfigApplicationContext ctx = new JavaConfigApplicationContext(ApplicationConfig.class);
+// foo, bar, and serviceA beans will all be available
+ctx.getBean(ServiceA.class); // works
+ctx.getBean(Foo.class); // works too
+[/code]
+
+This functionality simply provides another tool for effectively modularizing <span style="font-family:courier">@Configuration</span> classes.
+
+<h5>Externalizing values with <span style="font-family:courier">@ExternalValue</span> and <span style="font-family:courier">@ResourceBundles</span></h5>
+
+Several have suggested introducing functionality in JavaConfig equivalent to that of <span style="font-family:courier">PropertyPlaceholderConfigurer</span> for the purpose of accessing values in properties files during configuration.  M3 provides just that.  Let's assume we have a typical <span style="font-family:courier">DataSource</span> that needs its JDBC url, username and password.  As per usual, these values are stored in a properties file.  For the example below, that properties file will be available in our classpath at <span style="font-family:courier">com/acme/datasource.properties</span>.  Contents of that file are as follows:
+
+[code]
+datasource.url=jdbc:localhost:...
+datasource.username=scott
+datasource.password=tiger
+[/code]
+
+Using <span style="font-family:courier">@ResourceBundles</span> and <span style="font-family:courier">@ExternalValue</span>, we can now access these properties from within JavaConfig:
+
+[code lang="java"]
+@Configuration
+@ResourceBundles("classpath:/com/acme/datasource")
+public abstract class ApplicationConfig {
+    public @Bean OrderService orderService() {
+        return new OrderServiceImpl(orderRepository());
+    }
+
+    public @Bean OrderRepository orderRepository() {
+        return new JdbcOrderRepository(dataSource());
+    }
+
+    public @Bean DataSource dataSource() {
+        return new DriverManagerDataSource(url(), username(), password());
+    }
+
+    abstract @ExternalValue("datasource.url") String url();
+    abstract @ExternalValue("datasource.username") String username();
+    abstract @ExternalValue("datasource.password") String password();
+}
+[/code]
+
+A couple of things to note here: see how the value of the <span style="font-family:courier">@ResourceBundles</span> annotation doesn't end in <span style="font-family:courier">.properties</span>?  This is because JavaConfig is using Spring's internationalization infrastructure underneath, and will look for variations on <span style="font-family:courier">datasource.properties</span> such as <span style="font-family:courier">datasource_en.properties</span> according to the current locale.  Also, while this example supplied string values to the <span style="font-family:courier">@ExternalValue</span> annotation, the default is to look up properties based on the method name.  So, if we hadn't supplied <span style="font-family:courier">@ExternalValue("datasource.url") String url()</span>, and rather just <span style="font-family:courier">@ExternalValue String url()</span>, JavaConfig would have looked for a property named 'url'.
+
+<h5>What's next?</h5>
+
+A number of users have been asking when we'll see a 1.0 release of JavaConfig, and with good reason - it's been a long time coming!  There remain a number of important changes, both regarding internals as well as the public API that must be addressed before we're ready to call this 'production quality' software.  Expect to see more frequent milestones and release candidates in the coming weeks.  Bottom line: JavaConfig is now and will continue to be fully supported going forward.  If you'd like to keep an eye on progress, please visit JavaConfig's <a href="http://jira.springframework.org/browse/SJC">JIRA issue tracking</a>, especially the <a href="http://jira.springframework.org/browse/SJC?report=com.atlassian.jira.plugin.system.project:roadmap-panel">road map</a> view.
+
+<h5>Feedback Requested!</h5>
+
+If you've made it this far through the post it's a safe bet you're at least <em>interested</em> in JavaConfig :)  So take the next step!  <a href="https://sourceforge.net/project/showfiles.php?group_id=73357&amp;package_id=213222&amp;release_id=587200">Download the release</a>, <a href="http://static.springframework.org/spring-javaconfig/docs/1.0.0.m3/reference/html/">read the documentation</a>, give it a spin and <a href="http://jira.springframework.org/browse/SJC">let us know what you think</a>.

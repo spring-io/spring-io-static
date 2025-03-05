@@ -1,0 +1,507 @@
+<jmeterTestPlan version="1.2" properties="1.8">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="SWF Shopping Cart Test Plan" enabled="true">
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <stringProp name="TestPlan.comments">Test the Shopping Cart Sample using a Regular Expression Post Processor</stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Shopping Cart Users" enabled="true">
+        <longProp name="ThreadGroup.start_time">1181263370000</longProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.num_threads">160</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <stringProp name="LoopController.loops">20</stringProp>
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+        </elementProp>
+        <longProp name="ThreadGroup.end_time">1181263370000</longProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+          <boolProp name="CookieManager.clearEachIteration">false</boolProp>
+          <collectionProp name="CookieManager.cookies"/>
+        </CookieManager>
+        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Simple Controller" enabled="true"/>
+        <hashTree>
+          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Start checkout-flow" enabled="true">
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">checkout-flow</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_flowId</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.monitor">true</stringProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          </HTTPSampler>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Shipping Address" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="754293432">Edit Shipping Address</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
+              <stringProp name="Assertion.assume_success">true</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Flow Execution Key Extractor" enabled="true">
+            <stringProp name="RegexExtractor.default"></stringProp>
+            <stringProp name="RegexExtractor.regex">name=&quot;_flowExecutionKey&quot; value=&quot;(.*)&quot;</stringProp>
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.match_number">0</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.refname">flowExecutionKey</stringProp>
+          </RegexExtractor>
+          <hashTree/>
+          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Submit Shipping Address" enabled="true">
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">15 Wall Street</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">lineOne</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">New York</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">city</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">NY</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">state</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">10001</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">zipCode</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">${flowExecutionKey}</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_flowExecutionKey</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">Next</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_eventId_next</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.monitor">true</stringProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          </HTTPSampler>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="1219283120">Select Shipping Options</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <stringProp name="Assertion.assume_success">true</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Submit Shipping Type" enabled="true">
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">false</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">sameShippingAndBilling</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">STANDARD</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">shippingType</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">${flowExecutionKey}</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_flowExecutionKey</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">next</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_eventId_next</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.monitor">true</stringProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          </HTTPSampler>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Credt Card" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-514232607">Edit Credit Card</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
+              <stringProp name="Assertion.assume_success">true</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Submit Credit Card" enabled="true">
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">MASTERCARD</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">creditCardType</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">Adele Stevens</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">name</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">1111222233334444</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">creditCardNumber</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">02/21/2010</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">expirationDate</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">${flowExecutionKey}</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_flowExecutionKey</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">Next</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_eventId_next</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.monitor">true</stringProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          </HTTPSampler>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Billing Address" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1663891175">Edit Billing Address</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
+              <stringProp name="Assertion.assume_success">true</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Submit Billing Address" enabled="true">
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">300 E 33rd St</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">lineOne</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">New York</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">city</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">true</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">NY</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">state</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">10016</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">zipCode</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">${flowExecutionKey}</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_flowExecutionKey</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">Next</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_eventId_next</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.monitor">true</stringProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          </HTTPSampler>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Assert Confirmation" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="289649671">Order Confirmation</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
+              <stringProp name="Assertion.assume_success">true</stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSampler guiclass="HttpTestSampleGui" testclass="HTTPSampler" testname="Submit Order Confirmation" enabled="true">
+            <stringProp name="HTTPSampler.path"></stringProp>
+            <stringProp name="HTTPSampler.method">GET</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <stringProp name="HTTPSampler.port"></stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">${flowExecutionKey}</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_flowExecutionKey</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+                <elementProp name="" elementType="HTTPArgument">
+                  <stringProp name="Argument.metadata">=</stringProp>
+                  <stringProp name="Argument.value">next</stringProp>
+                  <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                  <stringProp name="Argument.name">_eventId_next</stringProp>
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.mimetype"></stringProp>
+            <stringProp name="HTTPSampler.FILE_FIELD"></stringProp>
+            <stringProp name="HTTPSampler.monitor">true</stringProp>
+            <stringProp name="HTTPSampler.domain"></stringProp>
+            <stringProp name="HTTPSampler.FILE_NAME"></stringProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          </HTTPSampler>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="-1996987244">Order Summary</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+              <stringProp name="Assertion.assume_success">true</stringProp>
+              <intProp name="Assertion.test_type">2</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+            <stringProp name="HTTPSampler.path">/swf-shoppingcart/flow.htm</stringProp>
+            <stringProp name="HTTPSampler.domain">localhost</stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.port">8080</stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+          </ConfigTestElement>
+          <hashTree/>
+        </hashTree>
+        <ResultSaver guiclass="ResultSaverGui" testclass="ResultSaver" testname="Save Responses to a file" enabled="true">
+          <stringProp name="FileSaver.filename">/home/rstoyanchev/projects/jmeter-test/shoppingcart-linkparser/log-regexp/html/response</stringProp>
+          <stringProp name="FileSaver.errorsonly">true</stringProp>
+        </ResultSaver>
+        <hashTree/>
+        <ResultCollector guiclass="SimpleDataWriter" testclass="ResultCollector" testname="Simple Data Writer" enabled="true">
+          <objProp>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <url>true</url>
+            </value>
+            <name>saveConfig</name>
+          </objProp>
+          <stringProp name="filename">/home/rstoyanchev/projects/jmeter-test/shoppingcart-linkparser/log-regexp/requests.log</stringProp>
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="Assertion Results" enabled="true">
+          <objProp>
+            <value class="SampleSaveConfiguration">
+              <time>false</time>
+              <latency>false</latency>
+              <timestamp>true</timestamp>
+              <success>false</success>
+              <label>true</label>
+              <code>false</code>
+              <message>false</message>
+              <threadName>false</threadName>
+              <dataType>false</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>false</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <url>true</url>
+            </value>
+            <name>saveConfig</name>
+          </objProp>
+          <stringProp name="filename">/home/rstoyanchev/projects/jmeter-test/shoppingcart-linkparser/log-regexp/assert.log</stringProp>
+          <boolProp name="ResultCollector.error_logging">true</boolProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="Aggregate Report" enabled="true">
+          <objProp>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+            </value>
+            <name>saveConfig</name>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

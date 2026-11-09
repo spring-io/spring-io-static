@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="302" viewBox="0 0 760 302" role="img" aria-labelledby="t d">
+<title id="t">Rendering throughput of the TODO page listing 10 todos</title>
+<desc id="d">Compose HTML with lowering: 42,453 pages per second, Compose HTML without lowering: 25,545 pages per second, JMustache: 4,779 pages per second, Thymeleaf: 3,953 pages per second</desc>
+<style>
+  .surface { fill: #fcfcfb; } .bar { fill: #2a78d6; } .grid { stroke: #e1e0d9; } .base { stroke: #c3c2b7; }
+  .title { fill: #0b0b0b; font: 600 16px system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .sub { fill: #52514e; font: 13px system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .label { fill: #0b0b0b; font: 14px system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .value { fill: #0b0b0b; font: 600 14px system-ui, -apple-system, "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; }
+  .tick { fill: #898781; font: 12px system-ui, -apple-system, "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; }
+  @media (prefers-color-scheme: dark) {
+    .surface { fill: #1a1a19; } .bar { fill: #3987e5; } .grid { stroke: #2c2c2a; } .base { stroke: #383835; }
+    .title, .label, .value { fill: #f0efec; } .sub { fill: #c3c2b7; }
+  }
+</style>
+<rect class="surface" width="760" height="302" rx="8"/>
+<text class="title" x="20" y="30">Rendering throughput, TODO page listing 10 todos</text>
+<text class="sub" x="20" y="52">Pages rendered per second on one thread, higher is better</text>
+<line class="grid" x1="230.0" x2="230.0" y1="70" y2="250" stroke-width="1"/>
+<text class="tick" x="230.0" y="268" text-anchor="middle">0</text>
+<line class="grid" x1="316.8" x2="316.8" y1="70" y2="250" stroke-width="1"/>
+<text class="tick" x="316.8" y="268" text-anchor="middle">10K</text>
+<line class="grid" x1="403.6" x2="403.6" y1="70" y2="250" stroke-width="1"/>
+<text class="tick" x="403.6" y="268" text-anchor="middle">20K</text>
+<line class="grid" x1="490.4" x2="490.4" y1="70" y2="250" stroke-width="1"/>
+<text class="tick" x="490.4" y="268" text-anchor="middle">30K</text>
+<line class="grid" x1="577.2" x2="577.2" y1="70" y2="250" stroke-width="1"/>
+<text class="tick" x="577.2" y="268" text-anchor="middle">40K</text>
+<line class="grid" x1="664.0" x2="664.0" y1="70" y2="250" stroke-width="1"/>
+<text class="tick" x="664.0" y="268" text-anchor="middle">50K</text>
+<text class="label" x="218" y="95.0" text-anchor="end">Compose HTML with lowering</text>
+<path class="bar" d="M230,78 H594.5 Q598.5,78 598.5,82 V98 Q598.5,102 594.5,102 H230 Z"/>
+<text class="value" x="606.5" y="95.0">42,453</text>
+<text class="label" x="218" y="141.0" text-anchor="end">Compose HTML without lowering</text>
+<path class="bar" d="M230,124 H447.7 Q451.7,124 451.7,128 V144 Q451.7,148 447.7,148 H230 Z"/>
+<text class="value" x="459.7" y="141.0">25,545</text>
+<text class="label" x="218" y="187.0" text-anchor="end">JMustache</text>
+<path class="bar" d="M230,170 H267.5 Q271.5,170 271.5,174 V190 Q271.5,194 267.5,194 H230 Z"/>
+<text class="value" x="279.5" y="187.0">4,779</text>
+<text class="label" x="218" y="233.0" text-anchor="end">Thymeleaf</text>
+<path class="bar" d="M230,216 H260.3 Q264.3,216 264.3,220 V236 Q264.3,240 260.3,240 H230 Z"/>
+<text class="value" x="272.3" y="233.0">3,953</text>
+<line class="base" x1="230" x2="230" y1="70" y2="250" stroke-width="1"/>
+</svg>

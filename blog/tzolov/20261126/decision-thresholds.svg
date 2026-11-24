@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 292" width="960" role="img" aria-labelledby="decision-thresholds-title decision-thresholds-desc" font-family="'Open Sans', 'Helvetica Neue', Arial, sans-serif" fill="#1f2328">
+<defs><marker id="decision-thresholds-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f2328" fill-opacity="0.6"/></marker><marker id="decision-thresholds-arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#6DB33F"/></marker><marker id="decision-thresholds-arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#3F7DE0"/></marker></defs>
+<title id="decision-thresholds-title">One answer, two thresholds, three actions</title>
+<desc id="decision-thresholds-desc">The yes/no question 'Does the customer report a defect?' and the probability of yes that the model reports for three messages, on a line from 0 to 1. Two thresholds cut the line into three bands. Below 0.4 the code does nothing: 'Thanks, the new charger works great!' has a probability of 0.00. Between 0.4 and 0.9 the model is not sure and a person looks at the message: 'Where is my order?' has 0.45. From 0.9 the model is very sure and the code opens a repair ticket: the message about headphones whose left side does not work has 0.95.</desc>
+<rect width="960" height="292" rx="10" fill="#ffffff"/>
+<text x="20.0" y="30.0" text-anchor="start" font-size="14" font-weight="700">“Does the customer report a defect?”</text>
+<text x="20.0" y="50.0" text-anchor="start" font-size="12.5" fill-opacity="0.8">The probability of yes for three messages, and what the code does with it</text>
+<rect x="60.0" y="176.0" width="336.0" height="34.0" rx="6" fill="none" stroke="#1f2328" stroke-opacity="0.35" stroke-width="1.2"/>
+<rect x="396.0" y="176.0" width="420.0" height="34.0" rx="6" fill="#6DB33F" fill-opacity="0.14" stroke="#6DB33F" stroke-width="1.2"/>
+<rect x="816.0" y="176.0" width="84.0" height="34.0" rx="6" fill="#6DB33F"/>
+<text x="60.0" y="228.0" text-anchor="middle" font-size="12" font-weight="600">0</text>
+<text x="396.0" y="228.0" text-anchor="middle" font-size="12" font-weight="600">0.4</text>
+<text x="816.0" y="228.0" text-anchor="middle" font-size="12" font-weight="600">0.9</text>
+<text x="900.0" y="228.0" text-anchor="middle" font-size="12" font-weight="600">1</text>
+<text x="228.0" y="256.0" text-anchor="middle" font-size="13.5" font-weight="700">do nothing</text>
+<text x="228.0" y="275.0" text-anchor="middle" font-size="12" fill-opacity="0.8">the model sees no defect</text>
+<text x="606.0" y="256.0" text-anchor="middle" font-size="13.5" font-weight="700">a person looks</text>
+<text x="606.0" y="275.0" text-anchor="middle" font-size="12" fill-opacity="0.8">the model is not sure</text>
+<text x="900.0" y="256.0" text-anchor="end" font-size="13.5" font-weight="700" fill="#6DB33F">open a repair ticket</text>
+<text x="900.0" y="275.0" text-anchor="end" font-size="12" fill-opacity="0.8">the model is very sure</text>
+<rect x="20.0" y="74.0" width="250.0" height="56.0" rx="8" fill="none" stroke="#1f2328" stroke-opacity="0.3" stroke-width="1.5"/>
+<text x="145.0" y="97.0" text-anchor="middle" font-size="12" font-style="italic">“Thanks, the new charger works great!”</text>
+<text x="145.0" y="117.0" text-anchor="middle" font-size="12.5" font-weight="700">probability of yes: 0.00</text>
+<path d="M62.5 132.0 L62.5 184.0" fill="none" stroke="#1f2328" stroke-opacity="0.6" stroke-width="1.4"/>
+<circle cx="62.5" cy="193.0" r="7" fill="#1f2328" stroke="#ffffff" stroke-width="2"/>
+<rect x="290.0" y="74.0" width="310.0" height="56.0" rx="8" fill="none" stroke="#1f2328" stroke-opacity="0.3" stroke-width="1.5"/>
+<text x="445.0" y="97.0" text-anchor="middle" font-size="12" font-style="italic">“Where is my order? I ordered it two weeks ago.”</text>
+<text x="445.0" y="117.0" text-anchor="middle" font-size="12.5" font-weight="700">probability of yes: 0.45</text>
+<path d="M438.0 132.0 L438.0 184.0" fill="none" stroke="#1f2328" stroke-opacity="0.6" stroke-width="1.4"/>
+<circle cx="438.0" cy="193.0" r="7" fill="#1f2328" stroke="#ffffff" stroke-width="2"/>
+<rect x="690.0" y="74.0" width="250.0" height="56.0" rx="8" fill="none" stroke="#1f2328" stroke-opacity="0.3" stroke-width="1.5"/>
+<text x="815.0" y="97.0" text-anchor="middle" font-size="12" font-style="italic">“… the left side doesn’t work.”</text>
+<text x="815.0" y="117.0" text-anchor="middle" font-size="12.5" font-weight="700">probability of yes: 0.95</text>
+<path d="M858.0 132.0 L858.0 184.0" fill="none" stroke="#1f2328" stroke-opacity="0.6" stroke-width="1.4"/>
+<circle cx="858.0" cy="193.0" r="7" fill="#1f2328" stroke="#ffffff" stroke-width="2"/>
+</svg>

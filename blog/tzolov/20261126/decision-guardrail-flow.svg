@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 344" width="1000" role="img" aria-labelledby="decision-guardrail-flow-title decision-guardrail-flow-desc" font-family="'Open Sans', 'Helvetica Neue', Arial, sans-serif" fill="#1f2328">
+<defs><marker id="decision-guardrail-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f2328" fill-opacity="0.6"/></marker><marker id="decision-guardrail-flow-arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#6DB33F"/></marker><marker id="decision-guardrail-flow-arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#3F7DE0"/></marker></defs>
+<title id="decision-guardrail-flow-title">One turn through the guardrail advisor</title>
+<desc id="decision-guardrail-flow-desc">The DecisionGuardrailAdvisor of Spring AI Decision Extensions screens a turn twice. Its input battery screens the user message with one call of the DecisionModel that carries all hazards of the battery. When the outcome is BLOCK or SUPPORT, a refusal goes back to the user and the chat model is never called. When the message passes, the chat model writes the reply. The output battery then screens the reply with one more decision call. When that outcome is BLOCK or SUPPORT, the refusal replaces the reply; otherwise the reply goes to the user. A REVIEW is a borderline result: it passes and is logged, unless blockOnReview is set. The DecisionModel can be Ollama, OpenAI or System One.</desc>
+<rect width="1000" height="344" rx="10" fill="#ffffff"/>
+<rect x="16.0" y="74.0" width="120.0" height="60.0" rx="8" fill="none" stroke="#1f2328" stroke-opacity="0.35" stroke-width="1.2"/><text x="76.0" y="100.0" text-anchor="middle" font-size="13.5" font-weight="700">User message</text><text x="76.0" y="119.0" text-anchor="middle" font-size="11.5" fill-opacity="0.85">the question</text>
+<rect x="206.0" y="74.0" width="170.0" height="60.0" rx="8" fill="#3F7DE0" fill-opacity="0.14" stroke="#3F7DE0" stroke-width="1.2"/><text x="291.0" y="100.0" text-anchor="middle" font-size="13.5" font-weight="700">Input battery</text><text x="291.0" y="119.0" text-anchor="middle" font-size="11.5" fill-opacity="0.85">screens the user message</text>
+<rect x="446.0" y="74.0" width="120.0" height="60.0" rx="8" fill="#6DB33F" fill-opacity="0.14" stroke="#6DB33F" stroke-width="1.2"/><text x="506.0" y="100.0" text-anchor="middle" font-size="13.5" font-weight="700">Chat model</text><text x="506.0" y="119.0" text-anchor="middle" font-size="11.5" fill-opacity="0.85">writes the reply</text>
+<rect x="636.0" y="74.0" width="170.0" height="60.0" rx="8" fill="#3F7DE0" fill-opacity="0.14" stroke="#3F7DE0" stroke-width="1.2"/><text x="721.0" y="100.0" text-anchor="middle" font-size="13.5" font-weight="700">Output battery</text><text x="721.0" y="119.0" text-anchor="middle" font-size="11.5" fill-opacity="0.85">screens the reply</text>
+<rect x="876.0" y="74.0" width="108.0" height="60.0" rx="8" fill="none" stroke="#1f2328" stroke-opacity="0.35" stroke-width="1.2"/><text x="930.0" y="100.0" text-anchor="middle" font-size="13.5" font-weight="700">Reply</text><text x="930.0" y="119.0" text-anchor="middle" font-size="11.5" fill-opacity="0.85">to the user</text>
+<path d="M140.0 104.0 L202.0 104.0" fill="none" stroke="#1f2328" stroke-opacity="0.6" stroke-width="1.6" marker-end="url(#decision-guardrail-flow-arrow)"/>
+<path d="M380.0 104.0 L442.0 104.0" fill="none" stroke="#6DB33F" stroke-width="1.6" marker-end="url(#decision-guardrail-flow-arrow-green)"/>
+<text x="411.0" y="95.0" text-anchor="middle" font-size="12.5" font-weight="700" fill="#6DB33F">PASS</text>
+<path d="M570.0 104.0 L632.0 104.0" fill="none" stroke="#1f2328" stroke-opacity="0.6" stroke-width="1.6" marker-end="url(#decision-guardrail-flow-arrow)"/>
+<path d="M810.0 104.0 L872.0 104.0" fill="none" stroke="#6DB33F" stroke-width="1.6" marker-end="url(#decision-guardrail-flow-arrow-green)"/>
+<text x="841.0" y="95.0" text-anchor="middle" font-size="12.5" font-weight="700" fill="#6DB33F">PASS</text>
+<path d="M291.0 72.0 L291.0 34.0 L76.0 34.0 L76.0 62.0" fill="none" stroke="#9A5B00" stroke-width="1.6" stroke-dasharray="6 4"/><path d="M76.0 72.0 L70.5 62.0 L81.5 62.0 z" fill="#9A5B00"/>
+<text x="84.0" y="24.0" text-anchor="start" font-size="12" font-weight="600" fill="#9A5B00">BLOCK or SUPPORT: a refusal. The chat model is never called.</text>
+<path d="M721.0 72.0 L721.0 34.0 L930.0 34.0 L930.0 62.0" fill="none" stroke="#9A5B00" stroke-width="1.6" stroke-dasharray="6 4"/><path d="M930.0 72.0 L924.5 62.0 L935.5 62.0 z" fill="#9A5B00"/>
+<text x="922.0" y="24.0" text-anchor="end" font-size="12" font-weight="600" fill="#9A5B00">BLOCK or SUPPORT: the refusal replaces the reply.</text>
+<rect x="386.0" y="196.0" width="240.0" height="64.0" rx="8" fill="#6DB33F" fill-opacity="0.14" stroke="#6DB33F" stroke-width="1.2"/>
+<text x="506.0" y="223.0" text-anchor="middle" font-size="14" font-weight="700">DecisionModel</text>
+<text x="506.0" y="243.0" text-anchor="middle" font-size="11.5" fill-opacity="0.85">Ollama, OpenAI or System One</text>
+<path d="M291.0 138.0 L291.0 228.0 L382.0 228.0" fill="none" stroke="#1f2328" stroke-opacity="0.6" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#decision-guardrail-flow-arrow)"/>
+<path d="M721.0 138.0 L721.0 228.0 L630.0 228.0" fill="none" stroke="#1f2328" stroke-opacity="0.6" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#decision-guardrail-flow-arrow)"/>
+<text x="281.0" y="168.0" text-anchor="end" font-size="12">one decision call:</text>
+<text x="281.0" y="185.0" text-anchor="end" font-size="12" fill-opacity="0.85">all hazards of the battery</text>
+<text x="731.0" y="168.0" text-anchor="start" font-size="12">one decision call:</text>
+<text x="731.0" y="185.0" text-anchor="start" font-size="12" fill-opacity="0.85">all hazards of the battery</text>
+<text x="500.0" y="294.0" text-anchor="middle" font-size="12" fill-opacity="0.85" font-style="italic">A REVIEW is a borderline result. It passes and is logged, unless blockOnReview is set.</text>
+<rect x="196.0" y="311.0" width="18.0" height="18.0" rx="4" fill="#3F7DE0" fill-opacity="0.14" stroke="#3F7DE0" stroke-width="1.2"/>
+<text x="222.0" y="325.0" text-anchor="start" font-size="12">DecisionGuardrailAdvisor, Spring AI Decision Extensions (community)</text>
+<rect x="664.0" y="311.0" width="18.0" height="18.0" rx="4" fill="#6DB33F" fill-opacity="0.14" stroke="#6DB33F" stroke-width="1.2"/>
+<text x="690.0" y="325.0" text-anchor="start" font-size="12">Spring AI 2.1</text>
+</svg>

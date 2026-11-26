@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 490" width="1000" role="img" aria-labelledby="session-log-event-types-title session-log-event-types-desc" font-family="'Open Sans', 'Helvetica Neue', Arial, sans-serif" fill="#1f2328">
+<defs><marker id="session-log-event-types-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f2328" fill-opacity="0.6"/></marker><marker id="session-log-event-types-arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#6DB33F"/></marker><marker id="session-log-event-types-arrow-blue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#3F7DE0"/></marker></defs>
+<title id="session-log-event-types-title">One session log, several kinds of event</title>
+<desc id="session-log-event-types-desc">An example session log of ten events, coloured by who writes them. Spring AI writes the MESSAGE events of the conversation, a user message, an assistant message with a tool call, the tool result and the final answer, and a COMPACTION event. Spring AI Session Extensions, a community project, writes TURN.STATUS, TURN.QUESTION and TURN.ANSWER events for the state of a turn. Spring AI Agent Utils, a community project, writes SUBAGENT events for sub-agent runs from its release 0.15. An application writes events under a name of its own, such as ACME.AUDIT. Only the messages in the view are sent to the model. Every other event is state, read by whoever writes it.</desc>
+<rect width="1000" height="490" rx="10" fill="#ffffff"/>
+<rect x="16.0" y="10.0" width="632.0" height="470.0" rx="8" fill="none" stroke="#1f2328" stroke-opacity="0.3" stroke-width="1.5"/>
+<text x="332.0" y="36.0" text-anchor="middle" font-size="16" font-weight="700">One session log</text>
+<text x="332.0" y="56.0" text-anchor="middle" font-size="12" fill-opacity="0.75">append-only, and every event has a type</text>
+<rect x="24.0" y="74.0" width="616.0" height="32.0" rx="6" fill="#6DB33F" fill-opacity="0.14" stroke="#6DB33F" stroke-width="1.2"/>
+<text x="34.0" y="94.5" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">MESSAGE</text>
+<text x="170.0" y="94.5" text-anchor="start" font-size="13">USER  “Please collect it today.”</text>
+<rect x="506.0" y="79.0" width="126.0" height="22.0" rx="11" fill="#6DB33F"/>
+<text x="569.0" y="94.5" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">in the prompt</text>
+<rect x="24.0" y="114.0" width="616.0" height="32.0" rx="6" fill="#3F7DE0" fill-opacity="0.14" stroke="#3F7DE0" stroke-width="1.2"/>
+<text x="34.0" y="134.5" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">TURN.STATUS</text>
+<text x="170.0" y="134.5" text-anchor="start" font-size="13">running</text>
+<text x="569.0" y="134.5" text-anchor="middle" font-size="11.5" fill-opacity="0.7">not sent to the model</text>
+<rect x="24.0" y="154.0" width="616.0" height="32.0" rx="6" fill="#6DB33F" fill-opacity="0.14" stroke="#6DB33F" stroke-width="1.2"/>
+<text x="34.0" y="174.5" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">MESSAGE</text>
+<text x="170.0" y="174.5" text-anchor="start" font-size="13">ASSISTANT  calls retryMortgagePaymentNow</text>
+<rect x="506.0" y="159.0" width="126.0" height="22.0" rx="11" fill="#6DB33F"/>
+<text x="569.0" y="174.5" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">in the prompt</text>
+<rect x="24.0" y="194.0" width="616.0" height="32.0" rx="6" fill="#3F7DE0" fill-opacity="0.14" stroke="#3F7DE0" stroke-width="1.2"/>
+<text x="34.0" y="214.5" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">TURN.QUESTION</text>
+<text x="170.0" y="214.5" text-anchor="start" font-size="13">confirm the tool call?</text>
+<text x="569.0" y="214.5" text-anchor="middle" font-size="11.5" fill-opacity="0.7">not sent to the model</text>
+<rect x="24.0" y="234.0" width="616.0" height="32.0" rx="6" fill="#3F7DE0" fill-opacity="0.14" stroke="#3F7DE0" stroke-width="1.2"/>
+<text x="34.0" y="254.5" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">TURN.ANSWER</text>
+<text x="170.0" y="254.5" text-anchor="start" font-size="13">allowed</text>
+<text x="569.0" y="254.5" text-anchor="middle" font-size="11.5" fill-opacity="0.7">not sent to the model</text>
+<rect x="24.0" y="274.0" width="616.0" height="32.0" rx="6" fill="#6DB33F" fill-opacity="0.14" stroke="#6DB33F" stroke-width="1.2"/>
+<text x="34.0" y="294.5" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">MESSAGE</text>
+<text x="170.0" y="294.5" text-anchor="start" font-size="13">TOOL  Collected CHF 1450.00</text>
+<rect x="506.0" y="279.0" width="126.0" height="22.0" rx="11" fill="#6DB33F"/>
+<text x="569.0" y="294.5" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">in the prompt</text>
+<rect x="24.0" y="314.0" width="616.0" height="32.0" rx="6" fill="#8250DF" fill-opacity="0.14" stroke="#8250DF" stroke-width="1.2"/>
+<text x="34.0" y="334.5" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">SUBAGENT.CREATED</text>
+<text x="170.0" y="334.5" text-anchor="start" font-size="13">a child session for a sub-agent</text>
+<text x="569.0" y="334.5" text-anchor="middle" font-size="11.5" fill-opacity="0.7">not sent to the model</text>
+<rect x="24.0" y="354.0" width="616.0" height="32.0" rx="6" fill="#C77700" fill-opacity="0.14" stroke="#C77700" stroke-width="1.2"/>
+<text x="34.0" y="374.5" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">ACME.AUDIT</text>
+<text x="170.0" y="374.5" text-anchor="start" font-size="13">action: exported</text>
+<text x="569.0" y="374.5" text-anchor="middle" font-size="11.5" fill-opacity="0.7">not sent to the model</text>
+<rect x="24.0" y="394.0" width="616.0" height="32.0" rx="6" fill="#6DB33F" fill-opacity="0.14" stroke="#6DB33F" stroke-width="1.2"/>
+<text x="34.0" y="414.5" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">MESSAGE</text>
+<text x="170.0" y="414.5" text-anchor="start" font-size="13">ASSISTANT  the final answer</text>
+<rect x="506.0" y="399.0" width="126.0" height="22.0" rx="11" fill="#6DB33F"/>
+<text x="569.0" y="414.5" text-anchor="middle" font-size="11.5" font-weight="700" fill="#ffffff">in the prompt</text>
+<rect x="24.0" y="434.0" width="616.0" height="32.0" rx="6" fill="#6DB33F" fill-opacity="0.14" stroke="#6DB33F" stroke-width="1.2"/>
+<text x="34.0" y="454.5" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">COMPACTION</text>
+<text x="170.0" y="454.5" text-anchor="start" font-size="13">the view starts at a later turn</text>
+<text x="569.0" y="454.5" text-anchor="middle" font-size="11.5" fill-opacity="0.7">not sent to the model</text>
+<rect x="664.0" y="10.0" width="312.0" height="470.0" rx="8" fill="none" stroke="#1f2328" stroke-opacity="0.3" stroke-width="1.5"/>
+<text x="820.0" y="36.0" text-anchor="middle" font-size="16" font-weight="700">Who writes what</text>
+<text x="820.0" y="56.0" text-anchor="middle" font-size="12" fill-opacity="0.75">an event type is a name</text>
+<rect x="680.0" y="80.0" width="18.0" height="18.0" rx="4" fill="#6DB33F" fill-opacity="0.14" stroke="#6DB33F" stroke-width="1.2"/>
+<text x="708.0" y="94.0" text-anchor="start" font-size="13" font-weight="700">Spring AI</text>
+<text x="708.0" y="113.0" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">MESSAGE, COMPACTION</text>
+<text x="708.0" y="131.0" text-anchor="start" font-size="12" fill-opacity="0.8">the conversation and its view</text>
+<rect x="680.0" y="150.0" width="18.0" height="18.0" rx="4" fill="#3F7DE0" fill-opacity="0.14" stroke="#3F7DE0" stroke-width="1.2"/>
+<text x="708.0" y="164.0" text-anchor="start" font-size="13" font-weight="700">Spring AI Session Extensions</text>
+<text x="708.0" y="183.0" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">TURN.*</text>
+<text x="708.0" y="201.0" text-anchor="start" font-size="12" fill-opacity="0.8">the state of a turn (community)</text>
+<rect x="680.0" y="220.0" width="18.0" height="18.0" rx="4" fill="#8250DF" fill-opacity="0.14" stroke="#8250DF" stroke-width="1.2"/>
+<text x="708.0" y="234.0" text-anchor="start" font-size="13" font-weight="700">Spring AI Agent Utils</text>
+<text x="708.0" y="253.0" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">SUBAGENT.*</text>
+<text x="708.0" y="271.0" text-anchor="start" font-size="12" fill-opacity="0.8">sub-agent runs (community, from 0.15)</text>
+<rect x="680.0" y="290.0" width="18.0" height="18.0" rx="4" fill="#C77700" fill-opacity="0.14" stroke="#C77700" stroke-width="1.2"/>
+<text x="708.0" y="304.0" text-anchor="start" font-size="13" font-weight="700">Your application</text>
+<text x="708.0" y="323.0" text-anchor="start" font-size="11" font-weight="700" font-family="ui-monospace, Menlo, Consolas, monospace">any name, such as ACME.AUDIT</text>
+<text x="708.0" y="341.0" text-anchor="start" font-size="12" fill-opacity="0.8">whatever you need to record</text>
+<path d="M680 362 H960" stroke="#1f2328" stroke-opacity="0.2" stroke-width="1.5"/>
+<text x="820.0" y="388.0" text-anchor="middle" font-size="12.5" font-weight="700">Only the messages in the view</text>
+<text x="820.0" y="406.0" text-anchor="middle" font-size="12.5" font-weight="700">are sent to the model.</text>
+<text x="820.0" y="430.0" text-anchor="middle" font-size="12.5" fill-opacity="0.85">Every other event is state,</text>
+<text x="820.0" y="448.0" text-anchor="middle" font-size="12.5" fill-opacity="0.85">read by whoever writes it.</text>
+</svg>
